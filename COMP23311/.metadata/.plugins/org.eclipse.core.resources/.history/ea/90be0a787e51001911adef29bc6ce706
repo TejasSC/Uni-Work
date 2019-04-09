@@ -1,0 +1,97 @@
+package uk.ac.man.cs.eventlite.config.data;
+
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
+
+import uk.ac.man.cs.eventlite.dao.EventService;
+import uk.ac.man.cs.eventlite.dao.HibernateSearchService;
+import uk.ac.man.cs.eventlite.dao.VenueService;
+import uk.ac.man.cs.eventlite.entities.Venue;
+import uk.ac.man.cs.eventlite.entities.Event;
+
+@Component
+@Profile({ "default", "test" })
+public class InitialDataLoader implements ApplicationListener<ContextRefreshedEvent> {
+
+	private final static Logger log = LoggerFactory.getLogger(InitialDataLoader.class);
+
+	@Autowired
+	private EventService eventService;
+
+	@Autowired
+	private VenueService venueService;
+
+	@Autowired
+	private HibernateSearchService searchService;
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+
+		if (eventService.count() > 0) {
+			log.info("Database already populated. Skipping data initialization.");
+			try {
+				searchService.initializeHibernateSearch();
+			} catch (InterruptedException e) {
+			    e.printStackTrace();
+			}
+			return;
+		}
+		
+		
+		Venue venue = new Venue();
+		venue.setName("Kilburn");
+		venue.setCapacity(800);
+		venue.setAddress("Oxford Road", "M13 9PL");
+		venue.setLatitude(-2.23389327);
+		venue.setLongitude(53.46755364);
+		venueService.save(venue);
+		
+		Venue preVenue = new Venue();
+		preVenue.setName("Home");
+		preVenue.setCapacity(6);
+		preVenue.setAddress("Six Acres m8", "LE12 6FU");
+		preVenue.setLatitude(52.82776680007595);
+		preVenue.setLongitude(-1.1445534371694635);
+		venueService.save(preVenue);
+
+		// Build and save initial models here.
+
+		// Build and save initial models here.
+		Event e1 = new Event();
+		e1.setName("COMP23412 Showcase, Group G");
+		e1.setDate(new Date(2019-1900, 4, 1));
+		e1.setTime(new Date(2019-1900, 4, 1, 11, 0));
+		e1.setVenue(venue);
+		
+		Event e2 = new Event();
+		e2.setName("COMP23412 Showcase, Group H");
+		e2.setDate(new Date(2019-1900, 4, 1));
+		e2.setTime(new Date(2019-1900, 4, 1, 9, 0));
+		e2.setVenue(venue);
+		
+		Event e3 = new Event();
+		e3.setName("COMP23412 Showcase, Group F");
+		e3.setDate(new Date(2019-1900, 4, 1));
+		e3.setTime(new Date(2019-1900, 4, 1, 11, 0));
+		e3.setVenue(venue);
+		
+		Event e4 = new Event();
+		e3.setName("COMP23412 Showcase, Group F");
+		e3.setDate(new Date(2019-1900, 4, 1));
+		e3.setTime(new Date(2019-1900, 4, 1, 11, 0));
+		e3.setVenue(venue);
+		
+		eventService.save(e1);
+		eventService.save(e2);
+		eventService.save(e3);
+		
+	}
+}

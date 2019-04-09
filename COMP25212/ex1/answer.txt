@@ -1,0 +1,50 @@
+PART 3 - (3 marks)
+Why are the times reported in PART 1 and PART 2 different?
+- In part 2 there are far more entries in the cache, which dramatically
+increases the time taken for two traversals to and from main memory because a
+single struct takes much longer to access when it is among many other structs.
+
+PART 6 - (4 marks)
+Explain how cache size reported in PART 4 relates to the values of nStruct at which performance changes quickly.
+- cache size is 6144 kB
+- therefore, since size of a struct is 40 bytes, cache can hold 157286 structs
+- at this point on the graph, the iteration time takes roughly 29ns
+- therefore when trying to use more structs that the cache can hold, performance
+is either just as bad or slightly worse than if nStructs were < 157286
+
+PART 7 - (3 x 2 marks)
+Identify three regions of your graph with different performance characteristics and explain each region:
+In region 1: 1 <= nStructs <= 512
+- Iteration time mostly takes values between 2.68 and 3 nanoseconds
+- The level 1 cache can accommodate 512 structs so therefore miss rate nearly 0%
+
+In region 2: 768 <= nStructs <= 16384
+- Iteration time doesn't change much (only between 7.456 and 7.622 nanoseconds)
+when nStructs >= 3072
+- Miss rate for L1 cache is a lot greater now, therefore much bigger L2 (and
+therefore slower) cache will store data that L1 could not before
+
+In region 3: 24576 <= nStructs <= 524288
+- Iteration time fluctuates very little when nStructs between 49152 and 524288,
+staying between 26.5ns and 30ns
+- Miss rate for both caches a lot higher now, so therefore
+-- either a L3 cache stores the results that cannot fit in the L1 and L2 cache
+-- or main memory will need to be accessed frequently
+
+PART 8 - (5 marks)
+The cachetest program as written simply tests memory reads over different cache working sets.  Modify the program so that every iteration also writes into the structure and repeat the performance measurement.
+How does the characteristic vary? Why?
+
+PART 9 - (4 marks)
+The cachetest program as written uses reads to a structure of a certain number of bytes in width.  What happens if we double the size of the structure?  What happens if we halve its size?
+- padding: 7 to 18
+-- when size of a struct is doubled, iteration time doesn't change a lot until
+nStructs = 32768: from this point it is almost or more than half the time taken
+than when struct size = 40 bytes
+- padding: 7 to 2
+-- when the size of a struct is halved, iteration time doesn't change a lot until
+nStructs = 32768: from this point it is also more than half the time taken
+than when struct size = 40 bytes
+
+PART 10 - (10 marks)
+How could we enhance the cachetest program to determine whether a processor cache is direct mapped, set associative, or fully associative?

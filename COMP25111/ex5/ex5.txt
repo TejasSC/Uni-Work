@@ -1,0 +1,26 @@
+Hello from ./zombie!
+Parent process will have a sleep ...
+Child process  10829 parent is 10828
+Child exiting now; will be a zombie for a few seconds
+Parent terminating; O.S. will clean up.
+
+Hello from ./orphan!
+Parent process 10549 run by process 8705
+Child  process 10550 parent is 10549
+Parent terminating 10549
+mbaxatc4@e-c07kilf1630 ~/C/e/w/orphan> Orphaned Child 10550 adopted by process 1
+Orphan terminating 10550
+
+Hello from ./processes!
+My PID is 11654
+That call returned the value 11655 to process 11654
+Goodbye from ./processes with PID 11654
+That call returned the value 0 to process 11655
+
+***************************
+*  A different programme  *
+***************************
+
+Hello from baby!
+My PID is 11655
+Goodbye from baby with PID 11655

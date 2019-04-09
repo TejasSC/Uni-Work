@@ -1,0 +1,5 @@
+7/12/18
+
+16:02
+- Logic error: not going to leaf node when question asked...
+- 

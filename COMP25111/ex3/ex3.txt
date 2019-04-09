@@ -1,0 +1,6 @@
+What happens if you don’t allocate a big enough space for your string?
+- Will only give segfault error if no gap between string and occupied memory,
+  otherwise no error given due to likely unused writeable memory between string
+  and occupied memory
+What problem (if any) might you have if you miss out the free() call?
+- No problem, lots of memory to spare for future runs of the program

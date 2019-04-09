@@ -1,0 +1,8 @@
+Before the change, cousins =
+[rhea, cronus, iapetus, oceanus, tethys, coeus, phoebe]
+After the change, cousins = undefined, because it doesn't terminate
+
+in my_family.pl, the parent relations show who the parents are, but
+do not give any indication as to who is a mother and who is a father.
+
+One might say "parent(X,Y) :- father(X,Y); mother(X,Y)." to better model it

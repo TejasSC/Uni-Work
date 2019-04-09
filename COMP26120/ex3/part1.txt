@@ -1,0 +1,32 @@
+Issue:
+Program received signal SIGSEGV, Segmentation fault.
+0x00007ffff7aaf716 in __strcpy_sse2_unaligned () from /lib64/libc.so.6
+
+After running backtrace:
+#0  0x00007ffff7aaf716 in __strcpy_sse2_unaligned () from /lib64/libc.so.6
+#1  0x00000000004007a5 in process (work=...) at broken.c:30
+#2  0x000000000040082f in main (argc=2, argv=0x7fffffffdb98) at broken.c:47
+
+Tried adding "work.second = malloc(100);" to the code
+- hello world becomes (null)
+  [Inferior 1 (process 21315) exited normally]
+
+1st issue: output should be Hello World, not (null)
+- Needed to pass work in as a pointer itself
+- always passing by value
+- Hence, "process (&work)" and using "work->second" fixed the issue
+
+2nd issue: work.first shouldn't be affected but it was
+- fixed by allocating different memory pointer temp
+
+extra issue: only "hEllo" came out, not the "World"
+- added extra else clause to handle any char that was white space
+
+3rd issue: capitalises E, not h
+- was skipping out first letter due to incrementing to next character before
+  iteration of loop
+- fixed by implementing do-while loop
+
+4th issue: valgrind complaining about not freeing the allocated memories
+- put a free(temp) in process, free(work.second) in main (since work.first
+  was never allocated anyway)

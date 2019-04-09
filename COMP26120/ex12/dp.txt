@@ -1,0 +1,15 @@
+1. Simple subproblems:
+- 0/1 knapsack problem recursively operates on smaller sublists of the original
+input list of items until it reaches base case of one item, which it must
+return
+2. Subproblem optimality:
+- let y = median of L, W = total weight of L
+- When recursively operating as described above, it follows the direction of
+  the total weight of elements on the left of L (< y) being > W/2, or the
+  direction of the total weight of elements on the right of L(> y) being < W/2
+- Therefore, every recursive step is optimised along the way 
+3. Subproblem overlap:
+- 0/1 knapsack problem algorithm has following recurrence relation:
+  T(n) = T(n/2) + bn (b > 0)
+  subproblem
+- Therefore, solves same subproblem over and over, i.e. doesn't generate a new

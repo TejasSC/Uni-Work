@@ -1,0 +1,108 @@
+1. "If something has an engine and four wheels it is a car."
+i) Prolog:
+  is_car(vehicle) :-
+    has_engine(vehicle),
+    has_four_wheels(vehicle).
+
+ii) FOL (the ^ symbol is logical AND):
+  (engine(X) ^ four_wheels(X)) -> car(X)
+- standard implication rule, stating that A -> B means "if A then B"
+
+2. "A good meal is one that contains three different kinds of food"
+i) Prolog:
+  goodMeal([X,Y,Z]) :-
+    diff(food(X), food(Y)),
+    diff(food(Y), food(Z)),
+    diff(food(X), food(Z)).
+
+ii) FOL:
+  Let f(X) = X being mapped to food
+  good_meal(f(X), f(Y), f(Z)) = (f(X) =/= f(Y)) ^
+                                (f(Y) =/= f(Z)) ^
+                                (f(X) =/= f(Z))
+- in this case, no two foods must be the same for a good meal to be satisfied
+
+3. "Every pet is either a dog or a cat"
+i) Prolog:
+- cannot be defined in prolog
+
+ii) FOL:
+  forAll(x).pet(x) -> (dog(x) v cat(x))
+- "every" means must apply to all instances of something
+
+4. "An object A is part of another object B either directly or due to the fact
+that A is part of an object C, which is itself part of B."
+i) Prolog:
+  is_partOf(A, B) :-
+    connected(A, B);
+    (connected(A, C), is_partOf(C, B)).
+- relation is either direct (1st case) or transitively recursive (2nd case)
+
+ii) FOL:
+  forAll(x,y,z). (object(x) ^ object(y) ^ object(z)) . isPartOf(x,y) ->
+      (connected(x,y) v (connected(x,z)^isPartOf(z,y)))
+
+
+5. "Hate is always mutual"
+i) Prolog:
+  mutual(X) :- hate(X).
+- using backwards chaining, can define like this
+
+ii) FOL:
+  forAll(x).(hate(x)->mutual(x))
+- it is not possible for something to be hate without being mutual
+
+6. "For every action there is an equal and opposite reaction"
+i) Prolog:
+
+
+ii) FOL:
+  forAll(x).exists(y).(action(x) -> (equal(action(x), action(y))
+                                    ^ opposite(action(x), action(y))))
+- not satisfiable for an action not to have an equal and opposite reaction with
+  implication statement
+- equal(x, y) predicate: do actions x and y have the same magnitude?
+- opposite(x, y) predicate: do actions x and y have opposite directions?
+
+7. "There are only ever exactly two Sith, a master and an apprentice."
+i) Prolog:
+  master(X) :- Sith(X).
+  apprentice(X) :- Sith(X).
+- Ensures that there exists only two types of sith
+
+ii) FOL:
+  exists(x, y).(sith(x)->master(x))^(sith(y)->apprentice(y))
+
+8. "Everybody was Kung Fu fighting, those cats were fast as lightning"
+i) Prolog:
+  lightning_fast(X) :- kung_fu_fighter(X).
+- X cannot be as fast as lightning if X is not a kung fu fighter
+
+ii) FOL:
+  forAll(x).(kung_fu_fighter(x) -> equal(speed(x), speed(lightning)))
+- possible for x to not be a kung_fu_fighter but still be as fast as lightning
+- kung_fu_fighters are a subset of things as fast as lightning
+
+9. "Nobody expects the Spanish Inquisition"
+i) Prolog:
+  expects_spanish_inq([]).
+  expects_spanish_inq(_) :- false.
+- assuming a list of people is passed as an argument, only an empty list, i.e.
+  no people, would expect the spanish inquisition
+
+ii) FOL:
+  ¬exists(x).forAll(y).(Spanish_Inquisition(y) -> (human(x)^expects(x,y)))
+- If the Spanish Inquisition is a subset of things people expect, there cannot
+be a person who expects it
+
+10. "It is a truth universally acknowledged, that a single man in possession of
+a good fortune, must be in want of a wife."
+i) Prolog:
+  man(X) :- human(X).
+  wants_wife(X) :-
+    has_good_fortune(X), single(X), man(X).
+- if a person X is a man, single and has a good fortune, he will want a wife
+
+ii) FOL:
+  forAll(x).((man(x)^single(x)^has_good_fortune(x)) -> wants_wife(x))
+- "truth universally acknowledged" and "single man" incinuate a forAll statement

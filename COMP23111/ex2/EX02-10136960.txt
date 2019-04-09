@@ -1,0 +1,44 @@
+Manager (manager_ID,name) :
+         pk[manager_ID]
+
+ManPhone (manager_ID,telephone) :
+          pk[manager_ID,telephone],
+          fk[manager_ID -> Manager.manager_ID]
+
+Artist (artistic_name,genre,managedBy) :
+        pk[artistic_name],
+        fk[managedBy -> Manager.manager_ID]
+
+Album (album_ID,title,createdBy) :
+       pk[album_ID],
+       fk[createdBy -> Artist.artistic_name]
+
+MasterTrack (trac_ID,working_title,working_length,recordedBy,editedBy) :
+             pk[track_ID],
+             fk[recordedBy -> Artist.artistic_name,
+             editedBy -> SoundEngineer.sound_eng_id]
+
+SoundEngineer (sound_eng_ID,name) :
+               pk[sound_eng_ID]
+
+ContractInfo (hasContract,date_from,date_to,
+              duration [derived as (date_to - date_from)]) :
+              pk[hasContract,date_from,date_to],
+              fk[hasContract -> Artist.artistic_name
+
+FinishedTrack (originatesFrom,version,released_title,final_length) :
+               pk[originatesFrom,version],
+               fk[originatesFrom -> MasterTrack.track_ID]
+
+//FOLLOWING CODE HAS BEEN ADDED BY ME
+CatalogueEntry (release_date, stock, price, ListedAs):
+                pk[release_date]
+                fk[ListedAs -> Album.albumID
+                  ,Comprises -> Orders.order_number]
+
+Orders (order_number, placed_on, dispatch_date, PlacedBy):
+        pk[order_number],
+        fk[PlacedBy -> Buyer.buyer_ID]
+
+Buyer (buyer_ID, name, registered_on):
+       pk[buyer_ID]

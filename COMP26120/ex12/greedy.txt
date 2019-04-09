@@ -1,0 +1,11 @@
+Greedy algorithm is not optimal for 0/1 knapsack problem, because it simply adds
+items into the knapsack based on their value:weight ratio, not their actual
+value.
+Therefore, algorithm commonly fails when it chooses items that don't take up
+full capacity, but an alternative item group which takes up full capacity has
+higher value.
+
+Greedy algorithm also is not optimal for Fractional knapsack because of the
+same reasons as above; as we get closer to the capacity when we add items in,
+there is no guarantee that the most valuable group of items is currently in the
+knapsack.

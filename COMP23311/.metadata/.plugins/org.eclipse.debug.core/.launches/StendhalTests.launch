@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.junit.launchconfig">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/stendhal_S1Team05"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value="=stendhal_S1Team05"/>
+<booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
+<stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
+<stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit4"/>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
+<listAttribute key="org.eclipse.jdt.launching.CLASSPATH">
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry containerPath=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot; javaProject=&quot;stendhal_S1Team05&quot; path=&quot;1&quot; type=&quot;4&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/ant.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/cglib-nodep-2.2_beta1.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/easymock.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/easymockclassextension.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/groovy.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/guava.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/h2.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jardiff.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/java-hamcrest-2.0.0.0.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jcurses.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-client-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-continuation-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-http-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-io-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-security-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-server-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-servlet-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-util-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-webapp-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jetty-xml-9.2.14.v20151106.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/jorbis.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/json-simple-1.1.1.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/junit-4.12.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/libtiled.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/log4j.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/marauroa-client-only.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/marauroa.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/mysql-connector-java-5.1.5-bin.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/servlet-api-3.1.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/simple.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/swing-layout.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/websocket-api-9.2.5.v20141112.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/websocket-client-9.2.5.v20141112.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/websocket-common-9.2.5.v20141112.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/websocket-server-9.2.5.v20141112.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/stendhal_S1Team05/libs/websocket-servlet-9.2.5.v20141112.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry id=&quot;org.eclipse.jdt.launching.classpathentry.defaultClasspath&quot;&gt;&#10;&lt;memento exportedEntriesOnly=&quot;false&quot; project=&quot;stendhal_S1Team05&quot;/&gt;&#10;&lt;/runtimeClasspathEntry&gt;&#10;"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value=""/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="stendhal_S1Team05"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea"/>
+</launchConfiguration>

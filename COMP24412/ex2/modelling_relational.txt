@@ -1,0 +1,15 @@
+How could my extensional relations be represented as tables?
+- Four columns correspond to facts: saxophone, trumpet, trombone, rhythm
+- Table therefore has 4 subtables/columns
+
+How could my intensional relations be represented as queries?
+- rules such as horn(X) would be translated to use nested select statements
+  gathering different raw tables, e.g. saxophone, trumpet, trombone
+
+- rules such as rhythmSection(X) and hornsSection(S,T,B) would use more
+  arithmetic functions as well as nested queries (e.g. to check if the rhythm
+  section has 4 distinct instruments, the keywords COUNT and DISTINCT would be
+  used)
+
+- Since rules like allRhythm and allHorns are recursive, it would be easier
+  in SQL to write equiavlant iterative functions

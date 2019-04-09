@@ -1,0 +1,33 @@
+1. Cannot use enumeration for large instances of knapsack because the runtime is
+already O(2^n), so there would clearly not be enough memory to allocate.
+
+2. easy.200.4.txt:
+- total value for branch-and-bound algorithm = 4077 (optimal)
+- total value for dynamic programming algorithm = 4077 (optimal)
+- total value for greedy algorithm = 4075 (non-optimal)
+
+  hard1.200.11.txt: branch-and-bound doesn't terminate
+- total value for dynamic programming = 126968 (optimal)
+- total value for greedy algorithm = 126579 (non-optimal)
+
+  hard1.2000.1.txt: branch-and-bound and dynamic programming don't terminate
+- total value for greedy algorithm = 1205167 (probably non optimal)
+Dynamic programming doesn't work on this instance because there is not enough
+memory to allocate.
+
+3.
+i) Greedy algorithm works on hard1 files, it can show an approximate solution
+but not necessarily fully optimal; the heuristic in the greedy algorithm may
+change the output of the solution.
+ii) branch-and-bound algorithm doesn't work on any hard1 files since it runs out
+of memory to allocate.
+iii) Dynamic programming algorithm theoretically works on hard1 files since it
+utilises a two-dimensional matrix which cannot surpass the memory which can be
+allocated for this algorithm.
+
+4. Ideally, dynamic programming would be best for tackling the hard1 instances
+since it always provides an optimal solution with enough memory to allocate for
+a 2d matrix of fixed size.
+In case algorithm runs out of time, however, use greedy algorithm since a decent
+approximate solution will still be provided, but very quickly due its use of
+heurisitics.

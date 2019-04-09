@@ -1,0 +1,19 @@
+package nalworForestTeleportTests;
+
+/*
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import games.stendhal.server.entity.mapstuff.portal.AccessCheckingPortalTest;
+import games.stendhal.server.entity.mapstuff.portal.Portal;
+import games.stendhal.server.entity.mapstuff.portal.Teleporter;
+
+public class HutToHutTest {
+
+	@Test
+	public void hutToHut() {
+		
+	}
+
+}
+*/

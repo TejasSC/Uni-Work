@@ -1,0 +1,8 @@
+fof(one, axiom, ![X] : (horn(X) => (sax(X) | brass(X)) & ~(sax(X) & brass(X)))).
+fof(two, axiom, ![X] : (brass(X) => (trumpet(X) | trombone(X)) & ~(trumpet(X) & trombone(X)))).
+fof(three, axiom, ![A, B, C, D] : ($distinct(A,B,C,D)^allRhythm(A, B, C, D))<=>rhythmSection(A,B,C,D))
+fof(four, axiom, ![X] : (?[Y,Z] : fullBand(X) => (hasRhythm(X, Y) & hasHorns(X, Z)))).
+fof(five, axiom, ![X] : (trombone(x) | (x = baritone_sax) | (x = tenor_sax)) -> low_pitch(x)).
+fof(six, axiom, ![X, list] : ((isEmpty(list) => nonmem_of(X, list)) | (diff(X, head(list)) & nonmem_of(X, tail(list)))).
+fof(seven, axiom, ![list] : ((isEmpty(list) => allRhythm(list)) | (rhythm(head(list)) & $distinct(list) & allRhythm(tail(list)))).
+fof(eight, axiom, ![S,T,B] : (length(S, 5) & allHorns(S) & length(T, 4) & allHorns(T) & length(B, 4) & allHorns(B) &)).

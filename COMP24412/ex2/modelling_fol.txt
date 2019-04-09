@@ -1,0 +1,28 @@
+"every horn is either saxophone or brass instrument but not both"
+forAll(x).(horn(x)->(saxophone(x) v brass(x)) ^ ¬(saxophone(x) ^ brass(x)))
+
+"every brass instrument is either trumpet or trombone instrument but not both"
+forAll(x).(brass(x)->(trumpet(x) v trombone(x)) ^ ¬(trumpet(x) ^ trombone(x)))
+
+"There is a rhythm section if and only if there are four distinct rhythm
+instruments"
+forAll(a,b,c,d).(allDiff([a,b,c,d])^allRhythm([a,b,c,d]))<->
+  rhythmSection([a,b,c,d])
+
+"A full band has both a rhythmSection and horns"
+forAll(x).exists(y, z).(fullBand(x) -> (hasRhythm(x, y) ^ hasHorns(x, z)))
+
+"If a horn is a trombone, a baritone sax or tenor sax, it is low pitched"
+forAll(x).((trombone(x) v (x = baritone_sax) v (x = tenor_sax))-> low_pitch(x))
+
+"Non member of a list"
+forAll(X, list).(isEmpty(list) -> nonmem_of(X, list)) v
+                (diff(X, head(list)) ^ nonmem_of(X, tail(list)))
+
+"all elements in a list are distinct" (TPTP already has library function)
+forAll(list).(isEmpty(list) -> allDiff(list)) v
+             (nonmem_of(head(list), tail(list)) ^ allDiff(tail(list)))
+
+"all distinct rhythm instruments"
+orAll(list).(isEmpty(list) -> allRhythm(list)) v
+             (rhythm(head(list)) ^ allDiff(list) ^ allRhythm(tail(list)))

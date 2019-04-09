@@ -1,0 +1,10 @@
+1. father(X, zeus).
+2. parents(giles,_,X). or parents(_,giles,X).
+3. not supposed to answer this one apparently
+4. man(A), woman(B), first_cousin(A,B).
+5. findall(X, (sister(_, X), man(X)), Y).
+
+-- All ancestors of zeus:
+findall(X, ancestor(X, zeus), Y).
+-- all cousins which aren't siblings
+findall(X-Y, (cousin(X,Y), \+sibling(X,Y)), results).

@@ -1,0 +1,16 @@
+A clique is a subset of nodes from an undirected graph where any distinct pair
+of nodes is connected.
+
+If a clique has size m, at least m colours are required to colour it. Therefore
+when finding the smallest k such that a graph is k-colourable, m <= k since if
+m == k, m would be the clique number (i.e. number of nodes in a maximum clique)
+of a graph.
+
+The maximum clique problem involves finding the largest subset of nodes where
+every distinct pair is connected, i.e. the maximum clique.
+For n nodes, the algorithm's asymptotic complexity is O(3^(n/3)) to solve it.
+Verification will be in polynomial time, since it is an NP-complete problem.
+
+Once the maximum clique of a graph G is found, its size k will determine the
+minimum number of colours needed to colour the graph, i.e. k will be the
+smallest value such that G is k-colourable.

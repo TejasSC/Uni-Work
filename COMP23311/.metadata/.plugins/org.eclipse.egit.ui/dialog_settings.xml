@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="0" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://gitlab.cs.man.ac.uk/comp23412_2018/eventlite_F01.git"/>
+		<item value="https://gitlab.cs.man.ac.uk/mbaxatc4/COMP23412-hello-mvc.git"/>
+		<item value="https://gitlab.cs.man.ac.uk/comp23311_2018/stendhal_S1Team05.git"/>
+		<item value="https://gitlab.cs.man.ac.uk/COMP23311_2018/access_check_mbaxatc4.git"/>
+		<item value="https://gitlab.cs.man.ac.uk/COMP23311_2018/access_check_mbaxact4.git"/>
+		<item value="https://gitlab.cs.man.ac.uk/COMP23311_2018/access_check_&lt;your"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+		<item value="bitbucket.org"/>
+		<item value="gitlab.cs.man.ac.uk"/>
+	</list>
+	<list key="CommitDialog.authorValues">
+		<item value="mbaxatc4 &lt;tejas.chandrasekar@student.manchester.ac.uk&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="mbaxatc4 &lt;tejas.chandrasekar@student.manchester.ac.uk&gt;"/>
+	</list>
+	<section name="GitImportWizard">
+		<item value="true" key="GitProjectsImportPage.STORE_NESTED_PROJECTS"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.dialogs.RenameBranchDialog.dialogBounds">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="526" key="DIALOG_HEIGHT"/>
+		<item value="655" key="DIALOG_X_ORIGIN"/>
+		<item value="159" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.push.PushResultDialog.dialogBounds">
+		<item value="904" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="514" key="DIALOG_HEIGHT"/>
+		<item value="184" key="DIALOG_X_ORIGIN"/>
+		<item value="191" key="DIALOG_Y_ORIGIN"/>
+		<list key="sashWeights">
+			<item value="600"/>
+			<item value="400"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.merge.MergeResultDialog.dialogBounds">
+		<item value="689" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="271" key="DIALOG_HEIGHT"/>
+		<item value="107" key="DIALOG_X_ORIGIN"/>
+		<item value="185" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
+		<item value="1098" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="367" key="DIALOG_HEIGHT"/>
+		<item value="0" key="DIALOG_X_ORIGIN"/>
+		<item value="287" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.dialogs.CheckoutDialog.dialogBounds">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="526" key="DIALOG_HEIGHT"/>
+		<item value="210" key="DIALOG_X_ORIGIN"/>
+		<item value="219" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.COMMIT_DIALOG_SECTION">
+		<item value="628" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="681" key="DIALOG_HEIGHT"/>
+		<item value="-8" key="DIALOG_X_ORIGIN"/>
+		<item value="-311" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+	</section>
+	<section name="org.eclipse.egit.ui.internal.dialogs.MergeTargetSelectionDialog.dialogBounds">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="834" key="DIALOG_HEIGHT"/>
+		<item value="204" key="DIALOG_X_ORIGIN"/>
+		<item value="1" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.fetch.FetchResultDialog.dialogBounds">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="490" key="DIALOG_HEIGHT"/>
+		<item value="207" key="DIALOG_X_ORIGIN"/>
+		<item value="163" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.dialogs.CompareTargetSelectionDialog.dialogBounds">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="526" key="DIALOG_HEIGHT"/>
+		<item value="655" key="DIALOG_X_ORIGIN"/>
+		<item value="159" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item value="500,500" key="STAGING_SASH_FORM_WEIGHT"/>
+		<item value="false" key="sortItemState"/>
+		<item value="500,500" key="HORIZONTAL_SASH_FORM_WEIGHT"/>
+	</section>
+</section>

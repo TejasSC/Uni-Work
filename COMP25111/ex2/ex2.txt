@@ -1,0 +1,14 @@
+4 arguments supplied
+Argument pointer array: 00000000D0F7B668
+Size of argv pointer: 8
+First argument string is: ./arguments
+  Pointer  0 at address 00000000D0F7B668 is 00000000D0F7BF94 to string "./arguments".
+  Pointer  1 at address 00000000D0F7B670 is 00000000D0F7BFA0 to string "who".
+  Pointer  2 at address 00000000D0F7B678 is 00000000D0F7BFA4 to string "that".
+  Pointer  3 at address 00000000D0F7B680 is 00000000D0F7BFA9 to string "boiiiiiiiiii".
+Number of arguments: 4
+
+Following code gave me a "Segmentation fault" error:
+int* p1 = NULL;
+*p1 = 3;
+- Here, i am dereferencing a null pointer

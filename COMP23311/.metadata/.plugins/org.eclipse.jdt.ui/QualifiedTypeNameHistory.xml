@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="codeToTest.SumConcatenate"/>
+<fullyQualifiedTypeName name="games.stendhal.server.entity.mapstuff.portal.Teleporter"/>
+<fullyQualifiedTypeName name="games.stendhal.server.entity.mapstuff.portal.Portal"/>
+<fullyQualifiedTypeName name="games.stendhal.server.entity.mapstuff.portal.AccessCheckingPortalTest"/>
+<fullyQualifiedTypeName name="org.eclipse.jetty.xml.XmlParser.Node"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="marauroa.common.Log4J"/>
+<fullyQualifiedTypeName name="games.stendhal.server.maps.MockStendlRPWorld"/>
+<fullyQualifiedTypeName name="org.junit.BeforeClass"/>
+<fullyQualifiedTypeName name="org.junit.AfterClass"/>
+<fullyQualifiedTypeName name="games.stendhal.server.entity.Outfit"/>
+<fullyQualifiedTypeName name="org.junit.Assert"/>
+<fullyQualifiedTypeName name="java.net.URISyntaxException"/>
+<fullyQualifiedTypeName name="games.stendhal.client.actions.MockDefaultSlashAction"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="games.stendhal.client.MockClientUI"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.Table"/>
+<fullyQualifiedTypeName name="javax.persistence.Id"/>
+<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
+<fullyQualifiedTypeName name="javax.persistence.TemporalType"/>
+<fullyQualifiedTypeName name="javax.persistence.Temporal"/>
+<fullyQualifiedTypeName name="org.springframework.data.repository.CrudRepository"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="org.hibernate.mapping.List"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+<fullyQualifiedTypeName name="uk.ac.man.cs.eventlite.dao.EventService"/>
+<fullyQualifiedTypeName name="uk.ac.man.cs.eventlite.entities.Venue"/>
+<fullyQualifiedTypeName name="uk.ac.man.cs.eventlite.entities.Event"/>
+<fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
+<fullyQualifiedTypeName name="uk.ac.man.cs.eventlite.dao.MapboxService"/>
+</qualifiedTypeNameHistroy>

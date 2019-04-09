@@ -1,0 +1,48 @@
+package games.stendhal.server.core.config;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.apache.log4j.Logger;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import games.stendhal.client.actions.MockDefaultSlashAction;
+import games.stendhal.client.actions.SlashAction;
+import games.stendhal.server.core.config.SlashActionXMLLoader;
+
+
+public class SlashActionXMLLoaderTest {
+  /**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		MockStendlRPWorld.get();
+		new DatabaseFactory().initializeDatabase();
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testSA() throws URISyntaxException, SAXException, IOException {
+		SlashActionXMLLoader loader = new SlashActionXMLLoader();
+		loader.load();
+
+	}
+
+}

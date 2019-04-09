@@ -1,0 +1,348 @@
+SQL> -- sends everything to <spoolfilename>
+SQL> ------------------------------------Part 1------------------------------------
+SQL> -- a) view showing first and last names of customers
+SQL> -- O is orders in one shopping cart, s is shipped | empty shopping carts
+SQL> CREATE OR REPLACE VIEW customers_with_some_carts AS
+  2  SELECT DISTINCT firstName, lastName
+  3  FROM customerInfo NATURAL JOIN orderCartInfo
+  4  WHERE customerInfo.loginName = orderCartInfo.customerID;
+
+View created.
+
+SQL> SELECT * FROM customers_with_some_carts;
+
+FIRSTNAME            LASTNAME                                                   
+-------------------- --------------------                                       
+Ophelia              Elsinore                                                   
+Mary                 Folio                                                      
+Percy                Byron                                                      
+
+SQL> 
+SQL> -- b) view = code, item number, category id and quantity in stock of inventory
+SQL> -- items
+SQL> CREATE OR REPLACE VIEW inventory_items_reordered AS
+  2  SELECT code, itemNum, qtyInstock, categoryId
+  3  FROM inventoryItem NATURAL JOIN category
+  4  WHERE itemNum IN (
+  5    SELECT itemNum
+  6    FROM itemType
+  7    WHERE itemType.belongsTo IN (
+  8  	 SELECT categoryId
+  9  	 FROM category
+ 10    )
+ 11  )
+ 12  AND qtyInstock < 25;
+
+View created.
+
+SQL> SELECT * FROM inventory_items_reordered;
+
+CODE                 ITEMNUM    QTYINSTOCK CATEGORYID                           
+-------------------- ---------- ---------- ----------                           
+hbk                  C2                 20 C                                    
+hbk                  C2                 20 F                                    
+hbk                  C2                 20 H                                    
+hbk                  C2                 20 P                                    
+hbk                  C2                 20 SF                                   
+ebk                  A0                 15 C                                    
+ebk                  A0                 15 F                                    
+ebk                  A0                 15 H                                    
+ebk                  A0                 15 P                                    
+ebk                  A0                 15 SF                                   
+
+10 rows selected.
+
+SQL> 
+SQL> -- 44 ROWS RETURNED, COME BACK TO THIS AND FIX IT
+SQL> -- c) loginName, first and last names, order cart id, total order price
+SQL> CREATE OR REPLACE VIEW names_with_total_order_prices AS
+  2  SELECT DISTINCT orderCartId, loginName, firstName, lastName, (qtyOrdered*orderPrice) AS totalOP
+  3  FROM customerInfo NATURAL JOIN orderCartInfo NATURAL JOIN lineItems;
+
+View created.
+
+SQL> SELECT * FROM names_with_total_order_prices;
+
+ORDERCARTI LOGINNAME  FIRSTNAME            LASTNAME                TOTALOP      
+---------- ---------- -------------------- -------------------- ----------      
+3          choizeznyc John                 Booker                    29.95      
+3          shkeandco  Mary                 Folio                     29.95      
+5          shkeandco  Mary                 Folio                      2.99      
+1          dramab     Ophelia              Elsinore                   2.99      
+3          dramab     Ophelia              Elsinore                  11.96      
+4          dramab     Ophelia              Elsinore                  14.97      
+7          dramab     Ophelia              Elsinore                   1.99      
+3          astrab     Percy                Byron                     11.96      
+8          choizeznyc John                 Booker                     7.98      
+3          choizeznyc John                 Booker                    31.92      
+1          shkeandco  Mary                 Folio                      2.99      
+
+ORDERCARTI LOGINNAME  FIRSTNAME            LASTNAME                TOTALOP      
+---------- ---------- -------------------- -------------------- ----------      
+4          astrab     Percy                Byron                     14.97      
+6          astrab     Percy                Byron                     13.98      
+8          shkeandco  Mary                 Folio                      7.98      
+3          dramab     Ophelia              Elsinore                  29.95      
+2          dramab     Ophelia              Elsinore                  11.97      
+7          astrab     Percy                Byron                      1.99      
+2          choizeznyc John                 Booker                    11.97      
+1          shkeandco  Mary                 Folio                      5.98      
+4          shkeandco  Mary                 Folio                     14.97      
+3          astrab     Percy                Byron                     31.92      
+3          choizeznyc John                 Booker                    11.96      
+
+ORDERCARTI LOGINNAME  FIRSTNAME            LASTNAME                TOTALOP      
+---------- ---------- -------------------- -------------------- ----------      
+6          choizeznyc John                 Booker                    13.98      
+3          shkeandco  Mary                 Folio                     11.96      
+1          dramab     Ophelia              Elsinore                   5.98      
+6          dramab     Ophelia              Elsinore                  13.98      
+1          astrab     Percy                Byron                      5.98      
+5          dramab     Ophelia              Elsinore                   2.99      
+8          astrab     Percy                Byron                      7.98      
+1          choizeznyc John                 Booker                     5.98      
+2          shkeandco  Mary                 Folio                     11.97      
+6          shkeandco  Mary                 Folio                     13.98      
+8          dramab     Ophelia              Elsinore                   7.98      
+
+ORDERCARTI LOGINNAME  FIRSTNAME            LASTNAME                TOTALOP      
+---------- ---------- -------------------- -------------------- ----------      
+3          dramab     Ophelia              Elsinore                  31.92      
+5          astrab     Percy                Byron                      2.99      
+1          choizeznyc John                 Booker                     2.99      
+4          choizeznyc John                 Booker                    14.97      
+5          choizeznyc John                 Booker                     2.99      
+7          choizeznyc John                 Booker                     1.99      
+3          shkeandco  Mary                 Folio                     31.92      
+7          shkeandco  Mary                 Folio                      1.99      
+1          astrab     Percy                Byron                      2.99      
+3          astrab     Percy                Byron                     29.95      
+2          astrab     Percy                Byron                     11.97      
+
+44 rows selected.
+
+SQL> 
+SQL> -- d) loginName, first and last names, total of all orders by a customer
+SQL> CREATE OR REPLACE VIEW names_with_customer_TOPs AS
+  2  SELECT loginName, firstName, lastName, SUM(orderPrice*qtyOrdered) AS sumOP
+  3  FROM customerInfo INNER JOIN orderCartInfo
+  4  ON customerInfo.loginName = orderCartInfo.customerID
+  5  INNER JOIN lineItems
+  6  ON orderCartInfo.orderCartId = lineItems.orderCartId
+  7  GROUP BY loginName, firstName, lastName;
+
+View created.
+
+SQL> SELECT * FROM names_with_customer_TOPs;
+
+LOGINNAME  FIRSTNAME            LASTNAME                  SUMOP                 
+---------- -------------------- -------------------- ----------                 
+shkeandco  Mary                 Folio                     25.94                 
+astrab     Percy                Byron                     96.78                 
+dramab     Ophelia              Elsinore                  13.96                 
+
+SQL> 
+SQL> -- e) view returns number of parts per customer
+SQL> -- use it to return outcomes such as 'BR-1 satisfied' or 'BR-1 violated'
+SQL> CREATE OR REPLACE VIEW total_carts_per_customer AS
+  2  SELECT DISTINCT customerID, COUNT(customerID) AS numCarts
+  3  FROM orderCartInfo
+  4  GROUP BY customerID;
+
+View created.
+
+SQL> SELECT customerID, numCarts,
+  2  CASE
+  3  	  WHEN numCarts > 2 THEN 'BR-1 violated'
+  4  	  ELSE 'BR-1 satisfied'
+  5  END
+  6  FROM total_carts_per_customer;
+
+CUSTOMERID   NUMCARTS CASEWHENNUMCAR                                            
+---------- ---------- --------------                                            
+dramab              2 BR-1 satisfied                                            
+shkeandco           3 BR-1 violated                                             
+astrab              3 BR-1 violated                                             
+
+SQL> 
+SQL> -- f) query nesting - should return 2 rows i think
+SQL> SELECT itemNum, itemSize, itemColor, numThisColorSize
+  2  FROM (
+  3    SELECT itemNum, itemSize, itemColor, numThisColorSize,
+  4    CASE
+  5  	   WHEN numThisColorSize > 1 THEN 'BR-2 violated'
+  6  	   ELSE 'BR-2 satisfied'
+  7    END AS br2Status
+  8    FROM (
+  9  	 SELECT itemNum, itemSize, itemColor, COUNT(itemNum) AS numThisColorSize
+ 10  	 FROM inventoryItem
+ 11  	 GROUP BY itemNum, itemSize, itemColor))
+ 12  WHERE br2Status = 'BR-2 violated';
+
+ITEMNUM      ITEMSIZE ITEMCOLOR       NUMTHISCOLORSIZE                          
+---------- ---------- --------------- ----------------                          
+A0                  4 green                          2                          
+C2                  3 black                          2                          
+
+SQL> 
+SQL> -- g) Trigger that raises an error if price of item set to value > 4*cheapest
+SQL> -- priced item
+SQL> CREATE OR REPLACE TRIGGER priceNotTooHighTrigger
+  2  BEFORE INSERT OR UPDATE ON itemType
+  3  FOR EACH ROW
+  4  DECLARE
+  5    highestPrice number;
+  6  BEGIN
+  7    SELECT min(4*price) INTO highestPrice FROM itemType;
+  8    IF :new.price > highestPrice THEN
+  9  	 raise_application_error(-20000, 'Price too much');
+ 10    END IF;
+ 11  END;
+ 12  /
+
+Trigger created.
+
+SQL> 
+SQL> SELECT * FROM itemType;
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+A0         The Anarchy of Mask                                                  
+***                                                     10.99 P                 
+                                                                                
+A1         The Butler Did                                                       
+---                                                     11.99 C                 
+                                                                                
+A2         The Abolished Man                                                    
+===                                                     15.99 SF                
+                                                                                
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+A3         Lyrical Bullets                                                      
++-+-                                                    20.99 P                 
+                                                                                
+B1         The Postlude                                                         
+=\=\=                                                   34.99 P                 
+                                                                                
+C1         The August of Guns                                                   
+**--                                                    10.99 H                 
+                                                                                
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+C2         The Expectant Mirror                                                 
+^-^                                                     12.99 H                 
+                                                                                
+
+7 rows selected.
+
+SQL> -- Both statements cause trigger to go off
+SQL> INSERT INTO itemType VALUES ('D2', 'The Expectant Mirror', '^-^', 45.99, 'H');
+INSERT INTO itemType VALUES ('D2', 'The Expectant Mirror', '^-^', 45.99, 'H')
+            *
+ERROR at line 1:
+ORA-20000: Price too much 
+ORA-06512: at "MBAXATC4.PRICENOTTOOHIGHTRIGGER", line 6 
+ORA-04088: error during execution of trigger 'MBAXATC4.PRICENOTTOOHIGHTRIGGER' 
+
+
+SQL> SELECT * FROM itemType;
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+A0         The Anarchy of Mask                                                  
+***                                                     10.99 P                 
+                                                                                
+A1         The Butler Did                                                       
+---                                                     11.99 C                 
+                                                                                
+A2         The Abolished Man                                                    
+===                                                     15.99 SF                
+                                                                                
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+A3         Lyrical Bullets                                                      
++-+-                                                    20.99 P                 
+                                                                                
+B1         The Postlude                                                         
+=\=\=                                                   34.99 P                 
+                                                                                
+C1         The August of Guns                                                   
+**--                                                    10.99 H                 
+                                                                                
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+C2         The Expectant Mirror                                                 
+^-^                                                     12.99 H                 
+                                                                                
+
+7 rows selected.
+
+SQL> UPDATE itemType
+  2  SET price = 45.99
+  3  WHERE itemNum = 'A0';
+UPDATE itemType
+       *
+ERROR at line 1:
+ORA-04091: table MBAXATC4.ITEMTYPE is mutating, trigger/function may not see it 
+ORA-06512: at "MBAXATC4.PRICENOTTOOHIGHTRIGGER", line 4 
+ORA-04088: error during execution of trigger 'MBAXATC4.PRICENOTTOOHIGHTRIGGER' 
+
+
+SQL> SELECT * FROM itemType;
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+A0         The Anarchy of Mask                                                  
+***                                                     10.99 P                 
+                                                                                
+A1         The Butler Did                                                       
+---                                                     11.99 C                 
+                                                                                
+A2         The Abolished Man                                                    
+===                                                     15.99 SF                
+                                                                                
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+A3         Lyrical Bullets                                                      
++-+-                                                    20.99 P                 
+                                                                                
+B1         The Postlude                                                         
+=\=\=                                                   34.99 P                 
+                                                                                
+C1         The August of Guns                                                   
+**--                                                    10.99 H                 
+                                                                                
+
+ITEMNUM    NAME                                                                 
+---------- --------------------                                                 
+PICTURE                                                 PRICE BELONGSTO         
+-------------------------------------------------- ---------- ----------        
+C2         The Expectant Mirror                                                 
+^-^                                                     12.99 H                 
+                                                                                
+
+7 rows selected.
+
+SQL> 
+SQL> SPOOL OFF

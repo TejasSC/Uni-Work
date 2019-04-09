@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+  <title>All events</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <h1>Search for Events</h1>
+
+     <p>This is a search engine for you to find an event by its name.</p>
+
+  </div>
+
+</body>
+</html>

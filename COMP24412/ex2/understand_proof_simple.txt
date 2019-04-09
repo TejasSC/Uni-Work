@@ -1,0 +1,112 @@
+./vampire --mode clausify greed.p
+cnf(u10,axiom,
+    happy(X0) | ~loves(X0,X1)).
+
+cnf(u11,axiom,
+    loves(X0,money) | ~rich(X0)).
+
+cnf(u12,axiom,
+    rich(giles)).
+
+cnf(u13,negated_conjecture,
+    ~happy(giles)).
+
+Output from running ./vampire greed.p:
+...
+1. ! [X0] : (happy(X0) <=> ? [X1] : loves(X0,X1)) [input]
+2. ! [X0] : (rich(X0) => loves(X0,money)) [input]
+3. rich(giles) [input]
+4. happy(giles) [input]
+5. ~happy(giles) [negated conjecture 4]
+6. ~happy(giles) [flattening 5]
+7. ! [X0] : (? [X1] : loves(X0,X1) => happy(X0)) [unused predicate definition removal 1]
+8. ! [X0] : (happy(X0) | ! [X1] : ~loves(X0,X1)) [ennf transformation 7]
+9. ! [X0] : (loves(X0,money) | ~rich(X0)) [ennf transformation 2]
+10. ~loves(X0,X1) | happy(X0) [cnf transformation 8]
+11. loves(X0,money) | ~rich(X0) [cnf transformation 9]
+12. rich(giles) [cnf transformation 3]
+13. ~happy(giles) [cnf transformation 6]
+14. ~rich(X0) | happy(X0) [resolution 11,10]
+15. happy(giles) [resolution 14,12]
+16. $false [subsumption resolution 15,13]
+
+Proof of greed.p: resolution step is step 14
+X1 unifies with money, therefore unifier = {X1 -> money}
+
+
+./run_vampire --selection 0 greed.p
+...
+1. ! [X0] : (happy(X0) <=> ? [X1] : loves(X0,X1)) [input]
+2. ! [X0] : (rich(X0) => loves(X0,money)) [input]
+3. rich(giles) [input]
+4. happy(giles) [input]
+5. ~happy(giles) [negated conjecture 4]
+6. ~happy(giles) [flattening 5]
+7. ! [X0] : (loves(X0,money) | ~rich(X0)) [ennf transformation 2]
+8. ! [X0] : ((happy(X0) | ! [X1] : ~loves(X0,X1)) & (? [X1] : loves(X0,X1) | ~happy(X0))) [nnf transformation 1]
+9. ! [X0] : ((happy(X0) | ! [X1] : ~loves(X0,X1)) & (? [X2] : loves(X0,X2) | ~happy(X0))) [rectify 8]
+10. ! [X0] : (? [X2] : loves(X0,X2) => loves(X0,sK0(X0))) [choice axiom]
+11. ! [X0] : ((happy(X0) | ! [X1] : ~loves(X0,X1)) & (loves(X0,sK0(X0)) | ~happy(X0))) [skolemisation 9,10]
+13. happy(X0) | ~loves(X0,X1) [cnf transformation 11]
+14. loves(X0,money) | ~rich(X0) [cnf transformation 7]
+15. rich(giles) [cnf transformation 3]
+16. ~happy(giles) [cnf transformation 6]
+17. ~loves(giles,X0) [resolution 13,16]
+20. ~rich(giles) [resolution 17,14]
+24. $false [resolution 20,15]
+% SZS output end Proof for greed
+
+- Proof appears to "miss" steps but is actually just avoiding showing non
+contributing steps
+-- these will naturally occur since the resolutions are unordered
+
+
+./vampire dependency.p
+...
+1. ! [X0] : (require(X0) => require(depend(X0))) [input]
+2. depend(a) = b [input]
+3. depend(b) = c [input]
+4. require(a) [input]
+5. require(c) [input]
+6. ~require(c) [negated conjecture 5]
+7. ~require(c) [flattening 6]
+8. ! [X0] : (require(depend(X0)) | ~require(X0)) [ennf transformation 1]
+9. require(depend(X0)) | ~require(X0) [cnf transformation 8]
+10. depend(a) = b [cnf transformation 2]
+11. depend(b) = c [cnf transformation 3]
+12. require(a) [cnf transformation 4]
+13. ~require(c) [cnf transformation 7]
+14. require(b) | ~require(a) [superposition 9,10]
+15. require(c) | ~require(b) [superposition 9,11]
+16. require(b) [subsumption resolution 14,12]
+17. ~require(b) [subsumption resolution 15,13]
+18. $false [subsumption resolution 17,16]
+% SZS output end Proof for dependency
+
+- superposition step is step 14
+- Rewritten term: depend(X0) goes to b
+- X0 unifies with a, therefore unifier = {X0 -> a}
+
+./run_vampire --selection 0 --age_weight_ratio 10:1 dependency.p
+1. ! [X0] : (require(X0) => require(depend(X0))) [input]
+2. depend(a) = b [input]
+3. depend(b) = c [input]
+4. require(a) [input]
+5. require(c) [input]
+6. ~require(c) [negated conjecture 5]
+7. ~require(c) [flattening 6]
+8. ! [X0] : (require(depend(X0)) | ~require(X0)) [ennf transformation 1]
+9. require(depend(X0)) | ~require(X0) [cnf transformation 8]
+10. depend(a) = b [cnf transformation 2]
+11. depend(b) = c [cnf transformation 3]
+12. require(a) [cnf transformation 4]
+13. ~require(c) [cnf transformation 7]
+15. require(depend(a)) [resolution 9,12]
+18. require(c) | ~require(b) [superposition 9,11]
+19. require(b) [forward demodulation 15,10]
+22. ~require(b) [resolution 18,13]
+38. $false [resolution 22,19]
+
+- paramodulation step is 19
+- Rewritten term: depend(a) goes to b
+- depend(a) unifies with b

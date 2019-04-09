@@ -1,0 +1,66 @@
+D) Computing Statistics
+Find the mean, variance and standard deviation of a list of integers
+
+Algorithm 1:
+calcTriple(A)
+  n = A.length
+  if (A == null || n == 0)
+    return "List cannot be empty or null"
+  else
+    sum = 0
+    sumSquares = 0
+
+    for i in 0 to (n-1)
+      sum += A(i)
+
+    mean = sum/n
+    for i in 0 to (n-1)
+      sumSquares += (A(i) - mean)^2
+
+    variance = sumSquares/n
+    stDev = sqrt(variance)
+
+    return(mean, variance, stDev)
+
+Above solution uses two passes, one to calculate mean, one to calculate variance
+using the mean.
+Algorithm 1 correct because:
+  - mathematical mean computes the sum of all values then divides them by number
+    of values, on lines 13-16
+  - variance sums the squares of differences of each list value from above mean,
+    used on line 18, and divides by length of list, on line 20
+  - stdDev is the square root of variance, calculated on line 21
+Algorithm 1 primarily uses O(n) and O(1) sub-algorithms, i.e. summing
+  - O(n) time complexity
+
+
+Below, solution uses one pass via recurrence relation.
+Solution inspired by Wolfram Alpha
+(following indexes are from 1, for convenience)
+Algorithm 2:
+calcVarianceMean(A)
+  n = A.length
+  if (n == 1) %base cases
+    mean = A(1)
+    variance = 0
+  else if (n > 1) %step cases
+    prevMean = (1/n-1)*((n-2)*calcVarianceMean(A[3:n]).mean + A(n-1))
+    mean = (1/n)*((n-1)*calcVarianceMean(A[2:n]).mean + A(n))
+    variance = (1 - 1/(n-1))*calcVarianceMean(A[2:n]).variance + n*(mean - prevMean)^2
+
+  stDev = sqrt(variance)
+  return (mean, variance, stDev)
+
+Algorithm 2 correct because
+  - check book for mathematical proof of formulae
+  - the sample variance formula needed to accommodate decreasing sizes of list
+Algorithm 2 worst case number of operations used:
+  - Let function T(n) be number of elementary operations called by calcVarianceMean(A)
+    where A has variable length between n and 1
+  - calcVarianceMean(A) where A.length == 1 yields:
+    - n == 1, mean == A(1), variance == 0
+    - this is 3 operations
+    - T(1) = 3
+    - where the list has n > 1 elements, it performs 3 operations and recursively calls
+      calcVarianceMean(n-1) 2 times, but calcVarianceMean(n-2) 1 time
+    - T(n) = 3 + T(n-2) + 2T(n-1)

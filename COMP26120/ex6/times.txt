@@ -1,0 +1,24 @@
+Algorithm, Length, ascending, descending, random
+-- all times given in seconds
+
+Sort	    items    ascending descending random
+bubble    1000     0.005     0.015      0.014
+insertion 1000     0.005     0.010      0.009
+bucket    1000     0.005     0.003      0.005
+quick     1000     0.015     0.011      0.007
+merge     1000     0.005     0.006      0.005
+bubble    10000    0.016     0.594      0.566
+insertion 10000    0.019     0.221      0.139
+bucket    10000    0.019     0.009      0.018
+quick     10000    0.469     0.306      0.014
+merge     10000    0.033     0.033      0.031
+bubble    100000   0.183     52.461     50.241
+insertion 100000   0.167     15.179     7.615
+bucket    100000   0.092     0.095      0.093
+quick     100000   39.854    14.482     0.167
+merge     100000   0.139     0.129      0.131
+bubble    1000000  0.726     DNF        DNF
+insertion 1000000  0.518     DNF        DNF
+bucket    1000000  0.413     DNF        DNF
+quick     1000000
+merge     1000000  1.123     1.606      1.602

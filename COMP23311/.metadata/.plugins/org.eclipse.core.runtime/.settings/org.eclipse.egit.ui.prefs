@@ -1,0 +1,23 @@
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/access_check_mbaxatc4/.git_customise-check=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="customise-check">\n<project>/gitlab-access-check</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/access_check_mbaxatc4/.git_master=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="master">\n<project>/gitlab-access-check</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/stendhal_S1Team05/.git_COMP23311/EX1/nalwor-entrance-teleport=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="COMP23311/EX1/nalwor-entrance-teleport">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/stendhal_S1Team05/.git_COMP23311/EX2/wheelbarrows=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="COMP23311/EX2/wheelbarrows">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/stendhal_S1Team05/.git_COMP23311/EX3/XMLFilesAndLoaders=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="COMP23311/EX3/XMLFilesAndLoaders">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/stendhal_S1Team05/.git_COMP23311/EX3/xml_test_coverage=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="COMP23311/EX3/xml_test_coverage">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23311/stendhal_S1Team05/.git_master=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="master">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_delete_venue_with_no_events=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="delete_venue_with_no_events">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_development=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="development">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_display_all_events_on_map=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="display_all_events_on_map">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_display_events_on_map_v2=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="display_events_on_map_v2">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_master=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="master">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_persisting_events=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="persisting_events">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_remove_venue_no_events=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="remove_venue_no_events">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_search_event_by_name=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="search_event_by_name">\n<project>/</project>\n</projects>
+//BranchProjectTracker__/home/mbaxatc4/COMP23412/eventlite_F01/.git_venue_json=<?xml version\="1.0" encoding\="UTF-8"?>\n<projects branch\="venue_json">\n<project>/</project>\n</projects>
+CloneWizard_ImportProjects=true
+StagingView_CompareMode=false
+commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\n<messages>\n<message>Fix javascript errors in displaying markers </message>\n<message>Merge branch &apos;development&apos; into display_events_on_map_v2&\#x0A;&\#x0A;Conflicts\:&\#x0A;&\#x09;src/main/java/uk/ac/man/cs/eventlite/controllers/EventsController.java&\#x0A;</message>\n<message>Attempt display of all events on map </message>\n<message>Implement mapBox funcitonality but not done yet </message>\n<message>Remove unnecessary comments and attempt implementation of map feature</message>\n<message>Refactor code to delete venue with no events </message>\n<message>Add ability to delete venue and implement tests </message>\n<message>Refactor update page to make similar to add event page </message>\n<message>Complete search function implementation</message>\n<message>Create search bar for events list </message>\n</messages>
+eclipse.preferences.version=1
+resourcehistory_graph_split=500,500
+resourcehistory_rev_split=700,300
+resourcehistory_show_findtoolbar=true

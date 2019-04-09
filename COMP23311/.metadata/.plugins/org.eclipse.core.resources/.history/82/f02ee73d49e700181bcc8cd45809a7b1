@@ -1,0 +1,25 @@
+package conf;
+
+//import static org.junit.Assert.*;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import games.stendhal.server.maps.MockStendlRPWorld;
+import marauroa.common.Log4J;
+
+public class WheelbarrowTest {
+	
+	@BeforeClass 
+	public static void setUpBeforeClass() throws Exception{
+		Log4J.init();
+		MockStendlRPWorld.get();
+	}
+	
+	@AfterClass 
+	public static void tearDownAfterClass() throws Exception{
+		MockStendlRPWorld.reset();
+	}
+	
+
+}

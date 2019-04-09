@@ -1,0 +1,23 @@
+Caches: the basics
+- small amount of rapid memory
+- temporarily stores frequently used data and instructions
+-- SMALL proportions
+- RAM access time really slow compared with instruction execution
+-- As few RAM accesses as possible, ideally
+- 'Unified' cache = used for both instructions and data
+-- von Neumann architecture, but Harvard better sometimes
+
+- Memory read: cache checked for required item
+- Cache hit: a cache address matches desired address (no RAM access needed)
+- Cache miss: address not present in cache therefore RAM accessed
+-- RAM item copied into cache
+-- Perhaps need eviction of an old cache item
+
+- Cache line = entry
+- address comparison = checking tag, data and valid bit fields
+-- TAG: can we find correct data?
+-- DATA: cache line size determines how much data is contained within
+-- VALID: 0 for invalid
+- ways to organise and use these fields: fully assoc, set assoc, DMC
+
+PROBLEM:

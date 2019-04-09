@@ -1,0 +1,81 @@
+./run_vampire greed.p
+% SZS status CounterSatisfiable for greed
+% # SZS output start Saturation.
+cnf(u14,axiom,
+    ~rich(X0) | loves(X0,money)).
+
+cnf(u16,negated_conjecture,
+    ~rich(giles)).
+
+cnf(u17,axiom,
+    loves(giles,sK0(giles))).
+
+cnf(u13,axiom,
+    ~loves(X0,X1) | happy(X0)).
+
+cnf(u15,axiom,
+    happy(giles)).
+
+cnf(u12,axiom,
+    ~happy(X0) | loves(X0,sK0(X0))).
+
+% # SZS output end Saturation.
+% ------------------------------
+% Version: Vampire 4.3.0 (commit 8ef9063 on 2019-03-05 22:53:57 +0100)
+% Termination reason: Satisfiable
+
+- rather than "cnf(u17,axiom, loves(giles,money).", money is substituted with
+  the function sK0(giles)
+- giles unified with X0 at the end
+- Not refutational based reasoning, i.e. doesn't resolve to false
+- It instead looks for a true interpretation
+
+./run_vampire --selection 0 greed.p
+cnf(u14,axiom,
+    loves(X0,money) | ~rich(X0)).
+
+cnf(u17,axiom,
+    ~rich(X0) | happy(X0)).
+
+cnf(u20,axiom,
+    loves(X0,sK0(X0)) | ~rich(X0)).
+
+cnf(u16,negated_conjecture,
+    ~rich(giles)).
+
+cnf(u19,axiom,
+    loves(giles,sK0(giles))).
+
+cnf(u12,axiom,
+    loves(X0,sK0(X0)) | ~happy(X0)).
+
+cnf(u21,axiom,
+    loves(X1,sK0(X1)) | ~loves(X1,X2)).
+
+cnf(u20,axiom,
+    loves(X0,sK0(X0)) | ~rich(X0)).
+
+cnf(u14,axiom,
+    loves(X0,money) | ~rich(X0)).
+
+cnf(u13,axiom,
+    happy(X0) | ~loves(X0,X1)).
+
+cnf(u21,axiom,
+    loves(X1,sK0(X1)) | ~loves(X1,X2)).
+
+cnf(u13,axiom,
+    happy(X0) | ~loves(X0,X1)).
+
+cnf(u17,axiom,
+    ~rich(X0) | happy(X0)).
+
+cnf(u15,axiom,
+    happy(giles)).
+
+cnf(u12,axiom,
+    loves(X0,sK0(X0)) | ~happy(X0)).
+
+- Unordered resolutions and non-refutational based reasoning
+- it repeats axioms due to its revealing of seemingly "hidden" steps from the
+  original proof above

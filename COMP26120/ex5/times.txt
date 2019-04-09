@@ -1,0 +1,16 @@
+Algorithm, Length, ascending, descending, random
+-- all times given in seconds
+
+Sort	   items   ascending descending random
+bubble,    1000,   0.005,    0.015,     0.014
+insertion, 1000,   0.005,    0.010,     0.009
+bucket,    1000,   0.005,    0.003,     0.005
+bubble,    10000,  0.016,    0.594,     0.566
+insertion, 10000,  0.019,    0.221,     0.139
+bucket,    10000,  0.019,    0.009,     0.018
+bubble,    100000, 0.183,    52.461,    50.241
+insertion, 100000, 0.167,    15.179,    7.615
+bucket,    100000, 0.092,    0.095,     0.093
+bubble,    1000000, ,        DNF,       DNF
+insertion, 1000000, , ,
+bucket,    1000000, , ,

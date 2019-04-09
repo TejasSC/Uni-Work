@@ -1,0 +1,21 @@
+PART 2 INTRO
+Knowledge Bases: The Basics
+- set of sentences in a formal language
+- Declarative method for agent construction: what does agent need to understand?
+- Based on this new KB, what answers can agent derive?
+- Agents viewable in two ways
+  1. Knowledge level (what they know, don't care about implementation)
+  2. implementation level (KB's data structures and manipulating algorithms)
+
+What does a KB Agent do?
+- Represent actions, states...
+- Take in fresh percepts
+- Modify internal representations and identify hidden properties of the world
+- Deduce appropriate actions
+! From all this, possibility of sound and complete reasoning with partial
+information states
+
+Aims with KB agents in general: design agents with pre-existing knowledge, but
+they try to learn more.
+- Learning methods must first exist for them to HAVE the background knowledge
+  -

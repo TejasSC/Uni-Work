@@ -122,11 +122,22 @@ elements.'.
   \item Here are the predicate-argument structures for the following sentences:
   \begin{enumerate}
     \item 'Steel is an alloy.': Entity(Steel) $\leftarrow$ Subject --
-    relation(is) -- Object $\rightarrow$ (an alloy) entity (Steel).
+    relation(is) -- Object $\rightarrow$ (an alloy) Entity(alloy).
+    \item 'Steel contains carbon.': Entity(Steel) $\leftarrow$ Subject --
+    relation(contains) -- Object $\rightarrow$ (carbon) Entity(carbon).
+    \item 'Steel contains iron.': Entity(Steel) $\leftarrow$ Subject --
+    relation(contains) -- Object $\rightarrow$ (iron) Entity(iron).
   \end{enumerate}
-  \item
-  \item
-  \item
+  \item Prolog translation of triples:\par
+    \noindent steel(X) :- alloy(X), hasCarbon(X), hasIron(X).
+  \item RDF translation of triples:
+  \begin{enumerate}
+    \item <Steel> <is an> <alloy>.
+    \item <Steel> <contains> <carbon>.
+    \item <Steel> <contains> <iron>.
+  \end{enumerate}
+  \item Axiom formalisation using Description Logics: \par
+    \noindent {\displaystyle Steel\equiv alloy} Steel\equiv alloy
   \item
 \end{enumerate}
 \end{document}

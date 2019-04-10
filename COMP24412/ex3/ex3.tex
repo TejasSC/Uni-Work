@@ -113,7 +113,7 @@ elements.'.
     \includegraphics[width=\linewidth]{task3dep.PNG}
     \caption{Dependency structure for sentence: 'Steel is an alloy of iron and
     carbon'}
-    \label{Cstruct}
+    \label{DepStruct}
   \end{figure}
 \end{enumerate}
 
@@ -129,15 +129,33 @@ elements.'.
     relation(contains) -- Object $\rightarrow$ (iron) Entity(iron).
   \end{enumerate}
   \item Prolog translation of triples:\par
-    \noindent steel(X) :- alloy(X), hasCarbon(X), hasIron(X).
+    steel(X) :- alloy(X), contains(X, carbon), contains(X, iron).
   \item RDF translation of triples:
   \begin{enumerate}
-    \item $\langle Steel \rangle$ $\langle is an \rangle$ $\langle alloy \rangle$ .
-    \item $\langle Steel \rangle$ $\langle contains \rangle$ $\langle carbon \rangle$ .
-    \item $\langle Steel \rangle$ $\langle contains \rangle$ $\langle iron \rangle$ .
+    \item $\langle Steel \rangle$ $\langle is an \rangle$
+    $\langle alloy \rangle$ .
+    \item $\langle Steel \rangle$ $\langle contains \rangle$
+    $\langle carbon \rangle$ .
+    \item $\langle Steel \rangle$ $\langle contains \rangle$
+    $\langle iron \rangle$ .
   \end{enumerate}
   \item Axiom formalisation using Description Logics: \par
-    \noindent Steel\equiv alloy
-  \item
+    Steel$\equiv$ alloy $\sqcap$ hasCarbon $\sqcap$ hasIron
+  \item 'Steel is an alloy of iron and carbon.' - as per the next figure, the
+  predicate-argument structure is more complex, and the Prolog itself might
+  differ like so:\par
+    steel(X) :- alloy(X, [carbon, iron]).\par
+
+    Previously, the three separate statements simply translated to three
+    relational statements. However, an 'alloy of' some elements means there
+    might be a predicate named alloy taking two arguments, testing if the first
+    contains the second (which is in list form since an alloy can have more
+    than two elements in it).\par
+  \begin{figure}
+    \includegraphics[width=\linewidth]{task4pas.PNG}
+    \caption{Predicate-argument structure for: 'Steel is an alloy of iron and
+    carbon.'}
+    \label{PAStruct}
+  \end{figure}
 \end{enumerate}
 \end{document}

@@ -18,8 +18,10 @@ unsigned long hcf(unsigned long a, unsigned long b){
 //computes result = (g^x) mod prime, i.e. fast modular exponentiation
 //Note: g < prime
 unsigned long fme(unsigned long g, unsigned long x, unsigned long prime){
+  //to increase from 0 to x, where result = (g^c) mod prime, throughout algo
   unsigned long c = 0;
   unsigned long result = 1;
+  //change of base law to get log with base 2
   unsigned long size = floor(log(x)/log(2)) + 1;
   int i;
   for (i = size-1; i >= 0; i--) {
@@ -34,7 +36,6 @@ unsigned long fme(unsigned long g, unsigned long x, unsigned long prime){
   return result;
 }//fme
 /*
-<<<<COME BACK TO THIS, NOT FINISHED THE EXPLANATIONS YET>>>>
 RUNTIMES as function of sizes g, x, and prime:
 linear in size of x
 - Reason: x = sumAll(x(i)*(2^i)), 0 <= i <= size-1
@@ -42,6 +43,11 @@ linear in size of x
 - a^(x(i)*(2^i)) = 1 if x(i) == 0, a^(2^i) if x(i) == 1
 - Iterating over size(x), with 'size' iterations total
 
+constant in the size of prime and g
+- Reason: number of operations involving prime is worst case 2*size(x), and
+  with g is size(x)
+- therefore number of bits of prime number and g do not affect the runtime in
+  the size of prime and g
 */
 
 //Task 4: inverse modulo prime
@@ -50,10 +56,9 @@ unsigned long imp(unsigned long y, unsigned long prime){
   return fme(y, prime - 2, prime);// FLT: y^(p-1) = 1 mod p = result * y
 }//imp
 /*
-<<<<COME BACK TO THIS, NOT FINISHED THE EXPLANATIONS YET>>>>
 RUNTIMES as function of sizes of y and p:
 - linear in the size of prime, since in fme, x = prime - 2
-- <<<<<< in the size of y, since in fme, g = y
+- constant in the size of y, since in fme, g = y
 */
 
 int main(int argc, char const *argv[]) {

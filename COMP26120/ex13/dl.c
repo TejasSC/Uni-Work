@@ -31,15 +31,25 @@ calculates x where y = (g^x) mod p
 */
 unsigned long dl(unsigned long y, unsigned long g, unsigned long prime) {
   //create space for discrete group and populate it
-  int discreteGroup[prime - 1]; unsigned long result;
-  int i;
-  for (i = 0; i < prime - 1; i++) {
+  int discreteGroup[prime - 1]; unsigned long result = -1;
+  int i = 0; int found = 0;
+  while (i < prime - 1 && !found) {
     discreteGroup[i] = fme(g, i+1, prime);
     if (y == discreteGroup[i]) {
-      result = i;
+      result = i+1; found = 1;
     }//if
-  }//for
+    i++;
+  }//while
   return result;
 }//dl
-//<<<<COME BACK TO THIS, NOT FINISHED THE EXPLANATIONS YET>>>>
-//RUNTIMES as function of sizes g, x, and p:
+/*
+RUNTIMES as function of sizes of y, g and p:
+constant in size of g
+- Reason: <<<<<<<>>>>>>>?
+
+linear in p, therefore <<<>>> in size of p
+- Reason: <<<<<<<>>>>>>>?
+
+constant in size of y
+- Reason: <<<<<<<>>>>>>>?
+*/

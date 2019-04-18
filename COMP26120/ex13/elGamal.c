@@ -61,17 +61,63 @@ RUNTIMES as function of sizes of y and p:
 - constant in the size of y, since in fme, g = y
 */
 
+void get_string(char str1[], char str2[]) {
+  fgets(str1, 80, stdin);
+  sscanf(str1, "%[^\t\n]", str2);
+}//get_string
+
+void get_string_pair(char str1[], char str2[], char str3[]) {
+  fgets(str1, 80, stdin);
+  sscanf(str1, "(%[^\t\n], %[^\t\n])", str2, str3);
+}//get_string
+
+float myRand (void){
+  /* return a random float in the range [0,1] */
+  return (float) rand() / RAND_MAX;
+}
+
 int main(int argc, char const *argv[]) {
-  unsigned long testFME = fme(2, 5, 7);
-  unsigned long testHCF = hcf(42, 28);
-  unsigned long a = 3; unsigned long b = 4;
-  unsigned long testIMP1 = imp(a, 11);
-  unsigned long testIMP2 = imp(b, 11);
-  printf("value of testFME: %d\n", testFME);
-  printf("value of testHCF: %d\n", testHCF);
-  if (testIMP1 == b && testIMP2 == a) {
-    printf("Value of testIMP1 is %d\n", testIMP1);
-    printf("Value of testIMP2 is %d\n", testIMP2);
-  }
-  return 0;
+  char buf1[80];//buffer for input
+  char buf2[80]; char buf3[80];//buffers for sscanf as used below
+  unsigned long g = 3; unsigned long p = 65537;
+  printf("Prime modulus is %d\n", p);
+  printf("Primitive root wrt %d is %d\n", p, g);
+  printf("Choose: e (encrypt) | d (decrypt) | k (get public key) | x (exit)? ");
+  get_string(buf1, buf2);
+
+  if (strcmp(buf2, "e")==0) {
+    //Encryption
+    printf("\nType secret number to send: ");
+    get_string(buf1, buf2);
+    unsigned long m = atol(buf2);//Secret number i.e. the message
+    printf("Type recipient's public key: ");
+    get_string(buf1, buf2);
+    unsigned long y = atol(buf2);//public key
+    unsigned long k = floor(myRand()*(p-1)) + 1;//random number in between
+    printf(">>>>>value of k: %d>>>>>\n", k);
+    unsigned long a = fme(g, k, p); unsigned long b = fme(m*y, k, p);
+    printf("The encrypted secret is: (%d, %d)\n", a, b);
+  } else if (strcmp(buf2, "d")==0) {
+    //Decryption
+    printf("\nType in received message in form (a,b): ");
+    get_string_pair(buf1, buf2, buf3);
+    unsigned long p1 = atol(buf2);//pair element 1
+    unsigned long p2 = atol(buf3);//pair element 2
+    printf("Type private key: ");
+    get_string(buf1, buf2);
+    unsigned long privateKey = atol(buf2);
+    unsigned long publicKey = fme(g, privateKey, p);
+    unsigned long decrypted = imp(g, publicKey);
+    printf("\nThe decrypted secret is: %d\n", decrypted);
+  } else if (strcmp(buf2, "k")==0) {
+    //Getting public key
+    printf("Type private key: ");
+    get_string(buf1, buf2);
+    unsigned long privateKey = atol(buf2);
+    unsigned long publicKey = fme(g, privateKey, p);
+    printf("Public key is %d", publicKey);
+  } else if (strcmp(buf2, "x")==0){
+    exit(0);//exiting
+  }//if
+  return(0);
 }//main

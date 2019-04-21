@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -pedantic -g -std=c99
-LDFLAGS=-lm
+LDFLAGS=-Iinclude -lm -lgmp 
 
 elGamal:
 	$(CC) $(CFLAGS) elGamal.c  -o elGamal $(LDFLAGS)

@@ -32,9 +32,13 @@ calculates x where y = (g^x) mod p
 unsigned long dl(unsigned long y, unsigned long g, unsigned long prime) {
   //create space for discrete group and populate it
   int discreteGroup[prime - 1]; unsigned long result = -1;
-  int i = 0; int found = 0;
-  while (i < prime - 1 && !found) {
+  int i; int found = 0;
+  for (i = 0; i < prime - 1; i++) {
     discreteGroup[i] = fme(g, i+1, prime);
+    //printf("discreteGroup element %d: %d\n", i+1, discreteGroup[i]);
+  }//for
+  i = 0;
+  while (i < prime - 1 && !found) {
     if (y == discreteGroup[i]) {
       result = i+1; found = 1;
     }//if
@@ -42,14 +46,20 @@ unsigned long dl(unsigned long y, unsigned long g, unsigned long prime) {
   }//while
   return result;
 }//dl
+
+int main(int argc, char const *argv[]) {
+  printf("fme(3,40000,65537) = %d\n", fme(3,40000,65537));
+  printf("dl(fme(3,40000,65537),3,65537) = %d\n", dl(fme(3,40000,65537),3,65537));
+  return (0);
+}
 /*
 RUNTIMES as function of sizes of y, g and p:
 constant in size of g
-- Reason: <<<<<<<>>>>>>>?
+- Reason:
 
 linear in p, therefore <<<>>> in size of p
-- Reason: <<<<<<<>>>>>>>?
+- Reason:
 
 constant in size of y
-- Reason: <<<<<<<>>>>>>>?
+- Reason:
 */

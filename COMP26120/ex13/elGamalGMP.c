@@ -3,7 +3,7 @@
 #include <math.h>
 #include <gmp.h>
 
-mpz_t result; mpz_t remainder; mpz_init(result); mpz_init(remainder);
+mpz_t result; mpz_t remainder; mpz_init(remainder);
 //Task 1: highest common factor
 //computes highest common factor of a and b - euclid's algorithm
 mpz_t hcf(mpz_t a, mpz_t b){
@@ -25,6 +25,7 @@ mpz_t fme(mpz_t g, mpz_t x, mpz_t prime){
   if (mpz_cmp(remainder,0)==0) {
     //power is even, result = g^(x/2) mod prime
     mpz_divexact(x, x, 2);
+    mpz_init_set(result, fme(g,x,prime));
     result = fme(g, x, prime);
     return (result*result)%prime;
   }//if

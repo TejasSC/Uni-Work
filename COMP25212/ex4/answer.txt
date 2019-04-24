@@ -1,0 +1,32 @@
+PART 1 – (3 mark)
+Run the program mhz
+Record the final line of output here: 
+
+What value CPU MHZ is reported in /proc/cpuinfo?  
+
+Why are (might be) the values different?
+
+PART 2 – (4 mark)
+Use the program lat_mem_rd to repeat the plot of memory access time against working set size you made in Exercise 1, preferably plotting it together with a different pen colour. (Show this plot to your demonstrator)
+Are the results comparable? 
+
+What might explain slight differences between the results?
+
+PART 3 – (4 marks)
+Use the program lmdd to create an 8 megabyte file in (eg) /var/tmp:
+lmdd if=internal of=/var/tmp/your-name count=1k
+What write bandwidth does lmdd report?
+
+How is this possible?
+
+PART 4 – (5 marks)
+Try creating files of different sizes (up to hundreds of megabytes, if you have the disk space) and plot the effective disk bandwidth. What disk bandwidth is reported for reading files of these different sizes?
+
+PART 5 – (4 marks)
+The stream benchmark reports the memory bandwidth available for simply copying memory (and lots of other things). Why do parts 3 and 4 not achieve this rate of transfer for small files?
+
+ [OPTIONAL PART 6 – (5 marks)]
+Use the program cache to investigate the cache hierarchy of your machine. It may take several minutes to run. What does it report?
+
+Explain these results
+

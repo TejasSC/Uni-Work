@@ -1,32 +1,70 @@
 PART 1 – (3 mark)
 Run the program mhz
-Record the final line of output here: 
+Record the final line of output here: 3390 MHz, 0.2950 nanosec clock
 
-What value CPU MHZ is reported in /proc/cpuinfo?  
+What value CPU MHZ is reported in /proc/cpuinfo?
+- 1654.382, 1692.164, 1696.886, 1691.437
 
 Why are (might be) the values different?
+- Other background processes might be running
+- while /proc/cpuinfo only reports the clock rate and megahertz values, the mhz
+  program actually uses the CPU to calculate these, thus making the CPU work at
+  a faster speed to do so
+  - also due to unrolled, interlocked loop of adds or shifts (more instructions
+    need to be executed)
 
 PART 2 – (4 mark)
-Use the program lat_mem_rd to repeat the plot of memory access time against working set size you made in Exercise 1, preferably plotting it together with a different pen colour. (Show this plot to your demonstrator)
-Are the results comparable? 
-
+Use the program lat_mem_rd to repeat the plot of memory access time against
+working set size you made in Exercise 1, preferably plotting it together with a
+different pen colour. (Show this plot to your demonstrator)
+Are the results comparable?
+- Not entirely, since ex.1 uses nStructs which always must be an integer
+- However, this exercise uses array size which is not necessarily an integer
 What might explain slight differences between the results?
+- The new graph shows four plateaus, i.e. onboard cache, external cache, main
+  memory and TLB miss latency 
 
 PART 3 – (4 marks)
 Use the program lmdd to create an 8 megabyte file in (eg) /var/tmp:
 lmdd if=internal of=/var/tmp/your-name count=1k
-What write bandwidth does lmdd report?
+What write bandwidth does lmdd report? 974.5130 MB/sec
 
 How is this possible?
+- the file creation is all done internally i.e. on the local machine, thus the
+  high spatial locality will allow for fast transfers of data
+  - otherwise bandwidth would be slower if done over the internet for instance,
+    due to longer distance that data must travel
 
 PART 4 – (5 marks)
-Try creating files of different sizes (up to hundreds of megabytes, if you have the disk space) and plot the effective disk bandwidth. What disk bandwidth is reported for reading files of these different sizes?
+Try creating files of different sizes (up to hundreds of megabytes, if you have
+the disk space) and plot the effective disk bandwidth. What disk bandwidth is
+reported for reading files of these different sizes?
 
 PART 5 – (4 marks)
-The stream benchmark reports the memory bandwidth available for simply copying memory (and lots of other things). Why do parts 3 and 4 not achieve this rate of transfer for small files?
+The stream benchmark reports the memory bandwidth available for simply copying
+memory (and lots of other things). Why do parts 3 and 4 not achieve this rate
+of transfer for small files?
+-
 
- [OPTIONAL PART 6 – (5 marks)]
-Use the program cache to investigate the cache hierarchy of your machine. It may take several minutes to run. What does it report?
+[OPTIONAL PART 6 – (5 marks)]
+Use the program cache to investigate the cache hierarchy of your machine. It
+may take several minutes to run. What does it report?
 
-Explain these results
+L1 cache: 32768 bytes 1.18 nanoseconds 128 linesize 8.01 parallelism
+L2 cache: 8388608 bytes 3.54 nanoseconds 128 linesize 3.78 parallelism
+Memory latency: 35.58 nanoseconds 3.67 parallelism
 
+Explain these results:
+- the "bytes" refers to the size of the all the lines in bytes
+- the "linesize" refers to the size of each cache entry in bytes
+  - L1 cache has 2^(15-7) = 256 lines/entries
+  - L2 cache has 2^(23-7) = 65536 lines/entries
+
+- the "nanoseconds" refers to the time taken to read from/write to a certain
+  memory location, i.e. the latency
+  - The further the spatial distance from the CPU, the larger the latency
+- the "parallelism" refers to the machine's ability to execute many memory
+  access instructions
+  - Spatial locality has nothing to do with parallelism
+  - Relatively, the L1 cache has more than twice the parallelism than the L2
+    cache and main memory

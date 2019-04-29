@@ -39,7 +39,7 @@ void trackbar(int, void*){
   imshow("Original picture", blurPic);
   //offset added to ensure greyscale values go between brightnesses of 0 and 255
   change = 128 + (src - blurPic);
-  // imshow("Showing difference", change);
+  imshow("Showing difference", change);
   int channels[] = {0};
   int sizeHgrams[] = {256};
   float range[] = {0,256};

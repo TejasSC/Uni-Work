@@ -22,7 +22,7 @@ Are the results comparable?
 - However, this exercise uses array size which is not necessarily an integer
 What might explain slight differences between the results?
 - The new graph shows four plateaus, i.e. onboard cache, external cache, main
-  memory and TLB miss latency 
+  memory and TLB miss latency
 
 PART 3 – (4 marks)
 Use the program lmdd to create an 8 megabyte file in (eg) /var/tmp:
@@ -39,6 +39,8 @@ PART 4 – (5 marks)
 Try creating files of different sizes (up to hundreds of megabytes, if you have
 the disk space) and plot the effective disk bandwidth. What disk bandwidth is
 reported for reading files of these different sizes?
+- Average write bandwidth = 497.6956 MB/sec
+- 
 
 PART 5 – (4 marks)
 The stream benchmark reports the memory bandwidth available for simply copying

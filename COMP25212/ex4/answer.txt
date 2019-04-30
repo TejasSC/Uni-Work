@@ -40,13 +40,15 @@ Try creating files of different sizes (up to hundreds of megabytes, if you have
 the disk space) and plot the effective disk bandwidth. What disk bandwidth is
 reported for reading files of these different sizes?
 - Average write bandwidth = 497.6956 MB/sec
-- 
+- Ends up being around 482 MB/sec
 
 PART 5 – (4 marks)
 The stream benchmark reports the memory bandwidth available for simply copying
 memory (and lots of other things). Why do parts 3 and 4 not achieve this rate
 of transfer for small files?
--
+- Stream copy bandwidth is 16191.05 MB/sec, much higher than parts 3 and 4
+- This is most likely because stream simply copies memory and does not interact
+  with the disk or any I/O devices 
 
 [OPTIONAL PART 6 – (5 marks)]
 Use the program cache to investigate the cache hierarchy of your machine. It

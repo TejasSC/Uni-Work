@@ -2,8 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <gmp.h>
+//if a number x has SIZE n bits, n = 1 + floor(log(x))
+//Therefore x = 2^(n-1) + r, where r = x%(2^(n-1))
+//Logarithmic in x = linear in size; 0(log(x)) = O(log(2^(n-1))) = O(n)
+//Linear in x = exponential in size; O(x) = O(2^(n-1)) = O(2^n)
 
-mpz_t result; mpz_t remainder; mpz_init(remainder);
+mpz_t result; mpz_t remainder; mpz_init(remainder); mpz_init(result);
 //Task 1: highest common factor
 //computes highest common factor of a and b - euclid's algorithm
 mpz_t hcf(mpz_t a, mpz_t b){
@@ -25,12 +29,19 @@ mpz_t fme(mpz_t g, mpz_t x, mpz_t prime){
   if (mpz_cmp(remainder,0)==0) {
     //power is even, result = g^(x/2) mod prime
     mpz_divexact(x, x, 2);
-    mpz_init_set(result, fme(g,x,prime));
-    result = fme(g, x, prime);
-    return (result*result)%prime;
+    mpz_set(result, fme(g,x,prime));
+    mpz_mul(result, result, result);//result = result^2
+    mpz_mod(result, result, prime);//result = result % prime
+    return result;
   }//if
-  result = fme(g, (x-1)/2, prime);//power odd, result = g^((x-1)/2) mod prime
-  return (g*((result*result)%prime))%prime;
+  mpz_sub(x, x, 1); mpz_divexact(x, x, 2);
+  //result = fme(g, (x-1)/2, prime);//power odd, result = g^((x-1)/2) mod prime
+  mpz_set(result, fme(g, x, prime))
+  mpz_mul(result, result, result);//result^2
+  mpz_mod(result, result, prime);//result^2 % prime
+  mpz_mul(result, g, result);//g * (result^2 % prime)
+  mpz_mod(result, result, prime);//all the above % prime
+  return result;
 }//fme
 /*
 RUNTIMES as function of sizes g, x, and prime:
@@ -50,7 +61,9 @@ constant in the size of prime and g
 //Task 4: inverse modulo prime
 //Use fermat's little theorem to find the multiplicative inverse of y mod p
 mpz_t imp(mpz_t y, mpz_t prime){
-  return fme(y, prime - 2, prime);// FLT: y^(p-1) = 1 mod p = result * y
+  mpz_t minusTwo; mpz_init(minusTwo);
+  mpz_sub(minusTwo, prime, 2);
+  return fme(y, minusTwo, prime);// FLT: y^(p-1) = 1 mod p = result * y
 }//imp
 /*
 RUNTIMES as function of sizes of y and p:
@@ -78,9 +91,10 @@ int main(int argc, char const *argv[]) {
   char buf2[80]; char buf3[80];//buffers for sscanf as used below
   mpz_t g; mpz_t prime; mpz_init(g); mpz_init(prime);
   mpz_set_str(g, "3", 10); mpz_set_str(prime, "65537", 10);
-  mpz_t y, message, k, a, b, p1, p2, next, nextFME;
-  mpz_init(y); mpz_init(message); mpz_init(k); mpz_init(a); mpz_init(b);
-  mpz_init(p1); mpz_init(p2); mpz_init(next); mpz_init(nextFME);
+  mpz_t auxPrime; mpz_init(auxPrime);
+  mpz_t y, message, a, b, p1, p2, next, nextFME, k;
+  mpz_init(y); mpz_init(message); mpz_init(a); mpz_init(b);
+  mpz_init(p1); mpz_init(p2); mpz_init(next); mpz_init(nextFME); mpz_init(k);
   mpz_t privateKey, publicKey, typedPrivate, decrypted;
   mpz_init(privateKey); mpz_init(publicKey); mpz_init(typedPrivate);
   mpz_init(decrypted);
@@ -107,11 +121,11 @@ int main(int argc, char const *argv[]) {
       } while(mpz_cmp(y, publicKey)!=0);
       do {
         //random number in between 1 and prime-1, needs to be relatively prime
-        k = floor(myRand()*(prime-2)) + 1;
-        check = hcf(prime - 1, k);
+        unsigned long inPrime = mpz_get_si(prime);
+        mpz_set_ui(k, floor(myRand()*(inPrime-2)) + 1);
         //gmp_printf("result = %Zd\n", result);
-      } while(check != 1);
-      a = fme(g, k, prime); b = (message*fme(publicKey, k, prime))%prime;
+      } while(mpz_cmp(hcf(prime - 1, k), 1) != 0);
+      //a = fme(g, k, prime); b = (message*fme(publicKey, k, prime))%prime;
       gmp_printf("The encrypted secret is: (%Zd, %Zd)\n\n", a, b);
     } else if (strcmp(buf2, "d")==0) {
       /*
@@ -119,18 +133,25 @@ int main(int argc, char const *argv[]) {
       */
       gmp_printf("\nType in received message in form (a,b): ");
       get_string_pair(buf1, buf2, buf3);
-      p1 = atol(buf2);//pair element 1
-      p2 = atol(buf3);//pair element 2
+      // p1 = atol(buf2);//pair element 1
+      mpz_set_str(p1, buf2, 10);
+      // p2 = atol(buf3);//pair element 2
+      mpz_set_str(p2, buf3, 10);
       do {
         gmp_printf("Type private key: ");
         get_string(buf1, buf2);
-        typedPrivate = atol(buf2);
-      } while(typedPrivate != privateKey);
+        // typedPrivate = atol(buf2);
+        mpz_set_str(typedPrivate, buf2, 10);
+      } while(mpz_cmp(typedPrivate, privateKey) != 0);
       //M = M *(y^k) * (p1^privateKey)^-1 %p
-      next = imp(a, prime); nextFME = fme(next, privateKey, prime);
-      decrypted = (b * nextFME) % prime;
+      // next = imp(a, prime);
+      mpz_set(next, imp(a, prime));
+      // nextFME = fme(next, privateKey, prime);
+      mpz_set(nextFME, fme(next, privateKey, prime));
+      // decrypted = (b * nextFME) % prime;
+      mpz_mul(decrypted, b, nextFME); mpz_mod(decrypted, decrypted, prime);
       //modular multiplicative inverse iff p1 is coprime with global prime
-      if (hcf(p1, prime)==1) {
+      if (mpz_cmp(hcf(p1, prime),1)==0) {
         gmp_printf("The decrypted secret is: %Zd\n\n", decrypted);
       } else {
         gmp_printf("Not able to decrypt message\n\n");
@@ -142,9 +163,9 @@ int main(int argc, char const *argv[]) {
       do {
         gmp_printf("Type private key: ");
         get_string(buf1, buf2);
-        privateKey = atol(buf2);
-      } while(privateKey >= prime - 1 || privateKey < 1);
-      publicKey = fme(g, privateKey, prime);
+        mpz_set_str(privateKey, buf2, 10);
+      } while(mpz_cmp(privateKey,prime-1) >= 0 || mpz_cmp(privateKey,1) < 0);
+      mpz_set(publicKey,fme(g, privateKey, prime));
       gmp_printf("Public key is %Zd\n\n", publicKey);
     } else if (strcmp(buf2, "x")==0){
       exit(0);//exiting

@@ -8,6 +8,7 @@
 using namespace cv; Mat src, dst, color_dst;
 
 //Computing a polynomial line's coefficients and points on polynomial line
+//n is the degree of polynomial
 vector<double> fitPoly(vector<Point> points, int n){
   int nPoints = points.size();//number of points
 
@@ -84,17 +85,17 @@ int main(int argc, char *argv[]) {
     return -1;
   }
   src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+  namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
+  imshow("Original picture", src);
   /*Step 1: convert src to greyscale image*/
   if (src.channels()==3) {
     cvtColor(src, src, CV_RGB2GRAY);
   }//if
-  namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
-  imshow("Original picture", src);
 
   /*Step 2: Apply Canny filter on frame, leaving us with image of edges*/
   // Reduce noise with a kernel 3x3
   blur(src, src, Size(3,3));
-  //0 = lower threshold, 10 = upper threshold, 3 = kernel size
+  //src, dst, lower threshold, upper threshold, kernel size
   Canny(src, dst, 50, 100, 3);
 
   /*Step 3: Apply probabilistic Hough transformation*/
@@ -111,12 +112,25 @@ int main(int argc, char *argv[]) {
   }//for
 
   /*Step 4: polynomial regression*/
-  vector<Point> points;
-  // for (size_t i = 0; i < lines.size(); i++) {
-  //   /* code */
-  // }
-  namedWindow("Picture with Canny and hough transformations", CV_WINDOW_AUTOSIZE);
-  imshow("Picture with Canny and hough transformations", color_dst);
+  vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
+  int i, j, k;
+  for (k = 0; k < lines.size(); k++) {
+    if (lines[k][0] != lines[k][2]) {
+      allPoints.push_back(Point(lines[k][0], lines[k][1]));
+      allPoints.push_back(Point(lines[k][2], lines[k][3]));
+    } else {
+      allPoints.push_back(Point(lines[k][0], lines[k][1]));
+      allPoints.push_back(Point(lines[k][2], lines[k][1]));
+    }//if
+  }//for
+  //create coefficient vector from all the points, with degree 2
+  coeffs = fitPoly(allPoints, 2);
+  for (int i = 0; i < allPoints.size(); i++) {
+    pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
+    circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
+  }//for
+  namedWindow("Picture with Canny and hough functions", CV_WINDOW_AUTOSIZE);
+  imshow("Picture with Canny and hough functions", color_dst);
   waitKey(0);
   if (strcmp(argv[1], "horizon1.jpg")==0) {
     imwrite("Canny 1.jpg", dst);

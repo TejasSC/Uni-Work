@@ -48,8 +48,8 @@ unsigned long dl(unsigned long y, unsigned long g, unsigned long prime) {
 }//dl
 
 int main(int argc, char const *argv[]) {
-  printf("fme(3,40000,65537) = %d\n", fme(3,40000,65537));
-  printf("dl(fme(3,40000,65537),3,65537) = %d\n", dl(fme(3,40000,65537),3,65537));
+  printf("fme(4,2,3) = %d\n", fme(4,2,3));
+  printf("dl(1,4,3) = %d\n", dl(fme(4,2,3),4,3));
   return (0);
 }
 /*

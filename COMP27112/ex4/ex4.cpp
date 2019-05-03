@@ -79,6 +79,10 @@ Point pointAtX(vector<double> coeff, double x)
   return Point(x, y);
 }//pointAtX
 
+double absGradient(Point p1, Point p2) {
+  return abs((p2.y-p1.y)/(p2.x - p1.x));
+}//gradient
+
 int main(int argc, char *argv[]) {
   if (argc != 2) {
     printf("Please provide a valid file path\n");
@@ -102,10 +106,12 @@ int main(int argc, char *argv[]) {
   cvtColor(dst, color_dst, CV_GRAY2BGR );
   //filter out vertical lines by calculating inverse tangent of each line
   vector<Vec4i> lines;
-  HoughLinesP(dst, lines, 1, CV_PI/180, 80, 30, 10);
+  HoughLinesP(dst, lines, 1, CV_PI/180, 25, 30, 10);
   for (size_t i = 0; i < lines.size(); i++) {
     //Don't want vertical lines, i.e. where two points(x,y) have equal x's
-    if (lines[i][2]!=lines[i][0]) {
+    //have gradient below a certain threshold
+    if (absGradient(Point(lines[i][0], lines[i][1]),
+    Point(lines[i][2], lines[i][3])) <= 0.25) {
       line( color_dst, Point(lines[i][0], lines[i][1]),
       Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
     }//if
@@ -115,13 +121,13 @@ int main(int argc, char *argv[]) {
   vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
   int i, j, k;
   for (k = 0; k < lines.size(); k++) {
-    if (lines[k][0] != lines[k][2]) {
-      allPoints.push_back(Point(lines[k][0], lines[k][1]));
-      allPoints.push_back(Point(lines[k][2], lines[k][3]));
-    } else {
-      allPoints.push_back(Point(lines[k][0], lines[k][1]));
-      allPoints.push_back(Point(lines[k][2], lines[k][1]));
-    }//if
+    allPoints.push_back(Point(lines[k][0], lines[k][1]));
+    allPoints.push_back(Point(lines[k][2], lines[k][3]));
+    // if (lines[k][0] != lines[k][2]) {
+    // }// else {
+    //   allPoints.push_back(Point(lines[k][0], lines[k][1]));
+    //   allPoints.push_back(Point(lines[k][2], lines[k][1]));
+    // }//if
   }//for
   //create coefficient vector from all the points, with degree 2
   coeffs = fitPoly(allPoints, 2);

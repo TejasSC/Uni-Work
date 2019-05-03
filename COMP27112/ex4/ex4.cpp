@@ -71,17 +71,12 @@ vector<double> fitPoly(vector<Point> points, int n){
 }//fitPoly
 //Returns the point for the equation determined
 //by a vector of coefficents, at a certain x location
-Point pointAtX(vector<double> coeff, double x)
-{
+Point pointAtX(vector<double> coeff, double x){
   double y = 0;
   for (int i = 0; i < coeff.size(); i++)
     y += pow(x, i) * coeff[i];
   return Point(x, y);
 }//pointAtX
-
-double absGradient(Point p1, Point p2) {
-  return abs((p2.y-p1.y)/(p2.x - p1.x));
-}//gradient
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
@@ -89,31 +84,38 @@ int main(int argc, char *argv[]) {
     return -1;
   }
   src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
-  namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
-  imshow("Original picture", src);
-  /*Step 1: convert src to greyscale image*/
+  // namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
+  // imshow("Original picture", src);
+  //pre step: blur the image before doing anything
+  /*Step 1: convert src to greyscale image, apply gaussian blur*/
   if (src.channels()==3) {
     cvtColor(src, src, CV_RGB2GRAY);
   }//if
+  GaussianBlur(src, src, Size(11,11), 0);
+  namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
+  imshow("blurred picture", src);
 
+  /*Step 1.5: apply binary threshold with black and white colours*/
+  //src, dst, threshold_type, max binary value, threshold_type
+  threshold( src, src, 0, 255,3 );
   /*Step 2: Apply Canny filter on frame, leaving us with image of edges*/
-  // Reduce noise with a kernel 3x3
-  blur(src, src, Size(3,3));
   //src, dst, lower threshold, upper threshold, kernel size
-  Canny(src, dst, 50, 100, 3);
+  Canny(src, dst, 10, 70, 3);
 
   /*Step 3: Apply probabilistic Hough transformation*/
   cvtColor(dst, color_dst, CV_GRAY2BGR );
   //filter out vertical lines by calculating inverse tangent of each line
   vector<Vec4i> lines;
-  HoughLinesP(dst, lines, 1, CV_PI/180, 25, 30, 10);
+  HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
   for (size_t i = 0; i < lines.size(); i++) {
     //Don't want vertical lines, i.e. where two points(x,y) have equal x's
-    //have gradient below a certain threshold
-    if (absGradient(Point(lines[i][0], lines[i][1]),
-    Point(lines[i][2], lines[i][3])) <= 0.25) {
-      line( color_dst, Point(lines[i][0], lines[i][1]),
-      Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
+    if (lines[0]!=lines[2]) {
+      //apply the gradient threshold
+      if ((lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) <= 0.5
+    && (lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) >= -0.5) {
+        line( color_dst, Point(lines[i][0], lines[i][1]),
+        Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
+      }//if
     }//if
   }//for
 
@@ -123,11 +125,6 @@ int main(int argc, char *argv[]) {
   for (k = 0; k < lines.size(); k++) {
     allPoints.push_back(Point(lines[k][0], lines[k][1]));
     allPoints.push_back(Point(lines[k][2], lines[k][3]));
-    // if (lines[k][0] != lines[k][2]) {
-    // }// else {
-    //   allPoints.push_back(Point(lines[k][0], lines[k][1]));
-    //   allPoints.push_back(Point(lines[k][2], lines[k][1]));
-    // }//if
   }//for
   //create coefficient vector from all the points, with degree 2
   coeffs = fitPoly(allPoints, 2);

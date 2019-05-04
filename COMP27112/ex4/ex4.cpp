@@ -14,10 +14,6 @@ int ratio = 3;
 int kernel_size = 3;
 int lowHLPthresh = 20;
 int max_HLPthresh = 100;
-vector<Vec4i> lines;
-vector<Point> allPoints;
-vector<Point> pointsPlot;
-vector<double> coeffs;
 
 //Computing a polynomial line's coefficients and points on polynomial line
 //n is the degree of polynomial
@@ -95,6 +91,10 @@ Point pointAtX(vector<double> coeff, double x){
 */
 void on_callback(int, void*)
 {
+  vector<Vec4i> lines;
+  vector<Point> allPoints;
+  vector<Point> pointsPlot;
+  vector<double> coeffs;
   /// Reduce noise with a kernel 3x3
   blur( src, detected_edges, Size(3,3) );
 

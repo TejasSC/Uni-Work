@@ -95,8 +95,16 @@ Point pointAtX(vector<double> coeff, double x){
 */
 void on_callback(int, void*)
 {
-  /// Reduce noise with a kernel 3x3
-  blur( src, detected_edges, Size(3,3) );
+  //pre step: blur the image before doing anything
+  /*Step 1: convert src to greyscale image, apply gaussian blur*/
+  if (src.channels()==3) {
+    cvtColor(src, src, CV_RGB2GRAY);
+  }//if
+  GaussianBlur(src, detected_edges, Size(3,3), 0);
+  // namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
+  // imshow("blurred picture", src);
+
+  namedWindow("Horizon detected", CV_WINDOW_AUTOSIZE);
 
   /// Canny detector
   Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
@@ -142,16 +150,6 @@ int main(int argc, char *argv[]) {
   src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
   namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
   imshow("Original picture", src);
-  //pre step: blur the image before doing anything
-  /*Step 1: convert src to greyscale image, apply gaussian blur*/
-  if (src.channels()==3) {
-    cvtColor(src, src, CV_RGB2GRAY);
-  }//if
-  GaussianBlur(src, src, Size(3,3), 0);
-  // namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
-  // imshow("blurred picture", src);
-
-  namedWindow("Horizon detected", CV_WINDOW_AUTOSIZE);
   /*Step 1.5: apply binary threshold with black and white colours*/
   //src, dst, threshold_type, max binary value, threshold_type
   //threshold( src, src, 0, 255,3 );
@@ -164,7 +162,6 @@ int main(int argc, char *argv[]) {
   //filter out vertical lines by calculating inverse tangent of each line
   createTrackbar( "HLP Threshold:", "Horizon detected", &lowHLPthresh,
     max_HLPthresh, on_callback );
-
   on_callback(0, 0);
   waitKey(0);
   if (strcmp(argv[1], "horizon1.jpg")==0) {

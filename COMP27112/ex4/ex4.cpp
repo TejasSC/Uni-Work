@@ -15,53 +15,6 @@ int kernel_size = 3;
 int lowHLPthresh = 20;
 int max_HLPthresh = 100;
 vector<Vec4i> lines;
-/**
- * @function on_callback
- * @brief Trackbar callback - Canny thresholds input with a ratio 1:3
- */
-void on_callback(int, void*)
-{
-  /// Reduce noise with a kernel 3x3
-  blur( src, detected_edges, Size(3,3) );
-
-  /// Canny detector
-  Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
-  /// Using Canny's output as a mask, we display our result
-  dst = Scalar::all(0);
-
-  src.copyTo( dst, detected_edges);
-  HoughLinesP(dst, lines, 1, CV_PI/180, lowHLPthresh, 80, 10);
-  /*Step 3: Apply probabilistic Hough transformation*/
-  cvtColor(dst, color_dst, CV_GRAY2BGR );
-  // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
-  for (size_t i = 0; i < lines.size(); i++) {
-    //Don't want vertical lines, i.e. where two points(x,y) have equal x's
-    if (lines[0]!=lines[2]) {
-      //apply the gradient threshold
-      if ((lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) <= 0.5
-    && (lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) >= -0.5) {
-        line( color_dst, Point(lines[i][0], lines[i][1]),
-        Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
-      }//if
-    }//if
-  }//for
-
-  /*Step 4: polynomial regression*/
-  vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
-  int i, j, k;
-  for (k = 0; k < lines.size(); k++) {
-    allPoints.push_back(Point(lines[k][0], lines[k][1]));
-    allPoints.push_back(Point(lines[k][2], lines[k][3]));
-  }//for
-  //create coefficient vector from all the points, with degree 2
-  coeffs = fitPoly(allPoints, 2);
-  for (int i = 0; i < allPoints.size(); i++) {
-    pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
-    circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
-  }//for
-  /// Show the image
-  imshow( "Final pic", dst );
-}//on_callback
 
 //Computing a polynomial line's coefficients and points on polynomial line
 //n is the degree of polynomial
@@ -133,6 +86,53 @@ Point pointAtX(vector<double> coeff, double x){
     y += pow(x, i) * coeff[i];
   return Point(x, y);
 }//pointAtX
+/**
+* @function on_callback
+* @brief Trackbar callback - Canny thresholds input with a ratio 1:3
+*/
+void on_callback(int, void*)
+{
+  /// Reduce noise with a kernel 3x3
+  blur( src, detected_edges, Size(3,3) );
+
+  /// Canny detector
+  Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
+  /// Using Canny's output as a mask, we display our result
+  dst = Scalar::all(0);
+
+  src.copyTo( dst, detected_edges);
+  HoughLinesP(dst, lines, 1, CV_PI/180, lowHLPthresh, 80, 10);
+  /*Step 3: Apply probabilistic Hough transformation*/
+  cvtColor(dst, color_dst, CV_GRAY2BGR );
+  // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
+  for (size_t i = 0; i < lines.size(); i++) {
+    //Don't want vertical lines, i.e. where two points(x,y) have equal x's
+    if (lines[0]!=lines[2]) {
+      //apply the gradient threshold
+      if ((lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) <= 0.5
+      && (lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) >= -0.5) {
+        line( color_dst, Point(lines[i][0], lines[i][1]),
+        Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
+      }//if
+    }//if
+  }//for
+
+  /*Step 4: polynomial regression*/
+  vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
+  int i, j, k;
+  for (k = 0; k < lines.size(); k++) {
+    allPoints.push_back(Point(lines[k][0], lines[k][1]));
+    allPoints.push_back(Point(lines[k][2], lines[k][3]));
+  }//for
+  //create coefficient vector from all the points, with degree 2
+  coeffs = fitPoly(allPoints, 2);
+  for (int i = 0; i < allPoints.size(); i++) {
+    pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
+    circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
+  }//for
+  /// Show the image
+  imshow( "Final pic", color_dst );
+}//on_callback
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {

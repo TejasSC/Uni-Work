@@ -4,9 +4,4 @@
 - Moving either the canny or HLP trackbar caused floating point
   exceptions
 19:52
-- tried to make as many variables as I could global to fix issue
-19:57
-- Fixed above problem, but now yellow parabolic curve wasn't being plot in the
-  correct place
-20:08
-- instead of going to lines.size() when using HoughLinesP method, use dst.cols?
+- tried to make as many variables as I could global to fix issue 

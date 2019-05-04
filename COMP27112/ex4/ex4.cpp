@@ -31,6 +31,35 @@ void on_callback(int, void*)
 
   src.copyTo( dst, detected_edges);
   HoughLinesP(dst, lines, 1, CV_PI/180, lowHLPthresh, 80, 10);
+  /*Step 3: Apply probabilistic Hough transformation*/
+  cvtColor(dst, color_dst, CV_GRAY2BGR );
+  // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
+  for (size_t i = 0; i < lines.size(); i++) {
+    //Don't want vertical lines, i.e. where two points(x,y) have equal x's
+    if (lines[0]!=lines[2]) {
+      //apply the gradient threshold
+      if ((lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) <= 0.5
+    && (lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) >= -0.5) {
+        line( color_dst, Point(lines[i][0], lines[i][1]),
+        Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
+      }//if
+    }//if
+  }//for
+
+  /*Step 4: polynomial regression*/
+  vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
+  int i, j, k;
+  for (k = 0; k < lines.size(); k++) {
+    allPoints.push_back(Point(lines[k][0], lines[k][1]));
+    allPoints.push_back(Point(lines[k][2], lines[k][3]));
+  }//for
+  //create coefficient vector from all the points, with degree 2
+  coeffs = fitPoly(allPoints, 2);
+  for (int i = 0; i < allPoints.size(); i++) {
+    pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
+    circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
+  }//for
+  /// Show the image
   imshow( "Final pic", dst );
 }//on_callback
 
@@ -131,38 +160,9 @@ int main(int argc, char *argv[]) {
   createTrackbar( "Min Threshold:", "Final pic", &lowThreshold, max_lowThreshold, on_callback );
   //src, dst, lower threshold, upper threshold, kernel size
   //Canny(src, dst, 10, 70, 3);
-
-  /*Step 3: Apply probabilistic Hough transformation*/
-  cvtColor(dst, color_dst, CV_GRAY2BGR );
   //filter out vertical lines by calculating inverse tangent of each line
   createTrackbar( "Acc. Threshold:", "Final pic", &lowHLPthresh, max_HLPthresh, on_callback );
-  // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
-  for (size_t i = 0; i < lines.size(); i++) {
-    //Don't want vertical lines, i.e. where two points(x,y) have equal x's
-    if (lines[0]!=lines[2]) {
-      //apply the gradient threshold
-      if ((lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) <= 0.5
-    && (lines[i][3]-lines[i][1])/(lines[i][2]-lines[i][0]) >= -0.5) {
-        line( color_dst, Point(lines[i][0], lines[i][1]),
-        Point(lines[i][2], lines[i][3]), Scalar(0,0,255), 3, 8 );
-      }//if
-    }//if
-  }//for
 
-  /*Step 4: polynomial regression*/
-  vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
-  int i, j, k;
-  for (k = 0; k < lines.size(); k++) {
-    allPoints.push_back(Point(lines[k][0], lines[k][1]));
-    allPoints.push_back(Point(lines[k][2], lines[k][3]));
-  }//for
-  //create coefficient vector from all the points, with degree 2
-  coeffs = fitPoly(allPoints, 2);
-  for (int i = 0; i < allPoints.size(); i++) {
-    pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
-    circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
-  }//for
-  /// Show the image
   on_callback(0, 0);
   waitKey(0);
   if (strcmp(argv[1], "horizon1.jpg")==0) {

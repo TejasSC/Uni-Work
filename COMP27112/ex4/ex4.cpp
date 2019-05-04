@@ -131,7 +131,7 @@ void on_callback(int, void*)
     circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
   }//for
   /// Show the image
-  imshow( "Final pic", color_dst );
+  imshow( "Horizon detected", color_dst );
 }//on_callback
 
 int main(int argc, char *argv[]) {
@@ -140,28 +140,28 @@ int main(int argc, char *argv[]) {
     return -1;
   }
   src = imread(argv[1], CV_LOAD_IMAGE_COLOR);
-  // namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
-  // imshow("Original picture", src);
+  namedWindow("Original picture", CV_WINDOW_AUTOSIZE);
+  imshow("Original picture", src);
   //pre step: blur the image before doing anything
   /*Step 1: convert src to greyscale image, apply gaussian blur*/
   if (src.channels()==3) {
     cvtColor(src, src, CV_RGB2GRAY);
   }//if
   GaussianBlur(src, src, Size(3,3), 0);
-  namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
-  imshow("blurred picture", src);
+  // namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
+  // imshow("blurred picture", src);
 
-  namedWindow("Final pic", CV_WINDOW_AUTOSIZE);
+  namedWindow("Horizon detected", CV_WINDOW_AUTOSIZE);
   /*Step 1.5: apply binary threshold with black and white colours*/
   //src, dst, threshold_type, max binary value, threshold_type
-  threshold( src, src, 0, 255,3 );
+  //threshold( src, src, 0, 255,3 );
   /*Step 2: Apply Canny filter on frame, leaving us with image of edges*/
   /// Create a Trackbar for user to enter threshold
-  createTrackbar( "Min Threshold:", "Final pic", &lowThreshold, max_lowThreshold, on_callback );
+  createTrackbar( "Canny Threshold:", "Horizon detected", &lowThreshold, max_lowThreshold, on_callback );
   //src, dst, lower threshold, upper threshold, kernel size
   //Canny(src, dst, 10, 70, 3);
   //filter out vertical lines by calculating inverse tangent of each line
-  createTrackbar( "Acc. Threshold:", "Final pic", &lowHLPthresh, max_HLPthresh, on_callback );
+  createTrackbar( "HLP Threshold:", "Horizon detected", &lowHLPthresh, max_HLPthresh, on_callback );
 
   on_callback(0, 0);
   waitKey(0);

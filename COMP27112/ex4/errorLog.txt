@@ -4,10 +4,4 @@
 - Moving either the canny or HLP trackbar caused floating point
   exceptions
 19:52
-- tried to make as many variables as I could global to fix issue
-20:15
-- issue fixed but now yellow parabolic lines was in the same place all the
-  time
-20:50
-- tried to move absolutely everything inside the callback function before
-  testing if it worked 
+- tried to make as many variables as I could global to fix issue 

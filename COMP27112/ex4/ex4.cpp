@@ -5,7 +5,32 @@
 #include <opencv2/imgproc/imgproc.hpp>
 //DON'T BE IN FISH: g++ ex4.cpp -o ex4 `pkg-config --libs --cflags opencv`
 
-using namespace cv; Mat src, dst, color_dst;
+using namespace cv; Mat src, dst, color_dst, detected_edges;
+
+int edgeThresh = 1;
+int lowThreshold;
+int const max_lowThreshold = 100;
+int ratio = 3;
+int kernel_size = 3;
+
+/**
+ * @function CannyThreshold
+ * @brief Trackbar callback - Canny thresholds input with a ratio 1:3
+ */
+void CannyThreshold(int, void*)
+{
+  /// Reduce noise with a kernel 3x3
+  blur( src, detected_edges, Size(3,3) );
+
+  /// Canny detector
+  Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
+
+  /// Using Canny's output as a mask, we display our result
+  dst = Scalar::all(0);
+
+  src.copyTo( dst, detected_edges);
+  imshow( "Final pic", dst );
+ }
 
 //Computing a polynomial line's coefficients and points on polynomial line
 //n is the degree of polynomial
@@ -95,12 +120,17 @@ int main(int argc, char *argv[]) {
   namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
   imshow("blurred picture", src);
 
+  namedWindow("Final pic", CV_WINDOW_AUTOSIZE);
   /*Step 1.5: apply binary threshold with black and white colours*/
   //src, dst, threshold_type, max binary value, threshold_type
   threshold( src, src, 0, 255,3 );
   /*Step 2: Apply Canny filter on frame, leaving us with image of edges*/
+  /// Create a Trackbar for user to enter threshold
+  createTrackbar( "Min Threshold:", "Final pic", &lowThreshold, max_lowThreshold, CannyThreshold );
+  /// Show the image
+  CannyThreshold(0, 0);
   //src, dst, lower threshold, upper threshold, kernel size
-  Canny(src, dst, 10, 70, 3);
+  //Canny(src, dst, 10, 70, 3);
 
   /*Step 3: Apply probabilistic Hough transformation*/
   cvtColor(dst, color_dst, CV_GRAY2BGR );
@@ -132,8 +162,7 @@ int main(int argc, char *argv[]) {
     pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
     circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
   }//for
-  namedWindow("Picture with Canny and hough functions", CV_WINDOW_AUTOSIZE);
-  imshow("Picture with Canny and hough functions", color_dst);
+  imshow("Final pic", color_dst);
   waitKey(0);
   if (strcmp(argv[1], "horizon1.jpg")==0) {
     imwrite("Canny 1.jpg", dst);

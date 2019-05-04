@@ -107,7 +107,7 @@ void on_callback(int, void*)
   /*Step 3: Apply probabilistic Hough transformation*/
   cvtColor(dst, color_dst, CV_GRAY2BGR );
   // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
-  for (size_t i = 0; i < lines.size(); i++) {
+  for (size_t i = 0; i < dst.cols; i++) {
     //Don't want vertical lines, i.e. where two points(x,y) have equal x's
     if (lines[0]!=lines[2]) {
       //apply the gradient threshold
@@ -120,7 +120,7 @@ void on_callback(int, void*)
   }//for
   /*Step 4: polynomial regression*/
   int i, j, k;
-  for (k = 0; k < lines.size(); k++) {
+  for (k = 0; k < dst.cols; k++) {
     allPoints.push_back(Point(lines[k][0], lines[k][1]));
     allPoints.push_back(Point(lines[k][2], lines[k][3]));
   }//for

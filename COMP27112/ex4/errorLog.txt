@@ -1,0 +1,7 @@
+04/05/19
+19:50
+- Canny and HLP transformations displayed on screen
+- Moving either the canny or HLP trackbar caused floating point
+  exceptions
+19:52
+- tried to make as many variables as I could global to fix issue 

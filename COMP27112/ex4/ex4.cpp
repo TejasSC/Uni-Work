@@ -15,6 +15,9 @@ int kernel_size = 3;
 int lowHLPthresh = 20;
 int max_HLPthresh = 100;
 vector<Vec4i> lines;
+vector<Point> allPoints;
+vector<Point> pointsPlot;
+vector<double> coeffs;
 
 //Computing a polynomial line's coefficients and points on polynomial line
 //n is the degree of polynomial
@@ -99,7 +102,6 @@ void on_callback(int, void*)
   Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
   /// Using Canny's output as a mask, we display our result
   dst = Scalar::all(0);
-
   src.copyTo( dst, detected_edges);
   HoughLinesP(dst, lines, 1, CV_PI/180, lowHLPthresh, 80, 10);
   /*Step 3: Apply probabilistic Hough transformation*/
@@ -116,9 +118,7 @@ void on_callback(int, void*)
       }//if
     }//if
   }//for
-
   /*Step 4: polynomial regression*/
-  vector<Point> allPoints; vector<Point> pointsPlot; vector<double> coeffs;
   int i, j, k;
   for (k = 0; k < lines.size(); k++) {
     allPoints.push_back(Point(lines[k][0], lines[k][1]));
@@ -157,11 +157,13 @@ int main(int argc, char *argv[]) {
   //threshold( src, src, 0, 255,3 );
   /*Step 2: Apply Canny filter on frame, leaving us with image of edges*/
   /// Create a Trackbar for user to enter threshold
-  createTrackbar( "Canny Threshold:", "Horizon detected", &lowThreshold, max_lowThreshold, on_callback );
+  createTrackbar( "Canny Threshold:", "Horizon detected", &lowThreshold,
+    max_lowThreshold, on_callback );
   //src, dst, lower threshold, upper threshold, kernel size
   //Canny(src, dst, 10, 70, 3);
   //filter out vertical lines by calculating inverse tangent of each line
-  createTrackbar( "HLP Threshold:", "Horizon detected", &lowHLPthresh, max_HLPthresh, on_callback );
+  createTrackbar( "HLP Threshold:", "Horizon detected", &lowHLPthresh,
+    max_HLPthresh, on_callback );
 
   on_callback(0, 0);
   waitKey(0);

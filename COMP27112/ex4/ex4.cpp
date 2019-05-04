@@ -12,25 +12,27 @@ int lowThreshold;
 int const max_lowThreshold = 100;
 int ratio = 3;
 int kernel_size = 3;
+int lowHLPthresh = 20;
+int max_HLPthresh = 100;
 
 /**
- * @function CannyThreshold
+ * @function on_callback
  * @brief Trackbar callback - Canny thresholds input with a ratio 1:3
  */
-void CannyThreshold(int, void*)
+void on_callback(int, void*)
 {
   /// Reduce noise with a kernel 3x3
   blur( src, detected_edges, Size(3,3) );
 
   /// Canny detector
   Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
-
   /// Using Canny's output as a mask, we display our result
   dst = Scalar::all(0);
 
   src.copyTo( dst, detected_edges);
+  HoughLinesP(dst, lines, 1, CV_PI/180, lowHLPthresh, 80, 10);
   imshow( "Final pic", dst );
- }
+}//on_callback
 
 //Computing a polynomial line's coefficients and points on polynomial line
 //n is the degree of polynomial
@@ -116,7 +118,7 @@ int main(int argc, char *argv[]) {
   if (src.channels()==3) {
     cvtColor(src, src, CV_RGB2GRAY);
   }//if
-  GaussianBlur(src, src, Size(11,11), 0);
+  GaussianBlur(src, src, Size(3,3), 0);
   namedWindow("blurred picture", CV_WINDOW_AUTOSIZE);
   imshow("blurred picture", src);
 
@@ -126,9 +128,7 @@ int main(int argc, char *argv[]) {
   threshold( src, src, 0, 255,3 );
   /*Step 2: Apply Canny filter on frame, leaving us with image of edges*/
   /// Create a Trackbar for user to enter threshold
-  createTrackbar( "Min Threshold:", "Final pic", &lowThreshold, max_lowThreshold, CannyThreshold );
-  /// Show the image
-  CannyThreshold(0, 0);
+  createTrackbar( "Min Threshold:", "Final pic", &lowThreshold, max_lowThreshold, on_callback );
   //src, dst, lower threshold, upper threshold, kernel size
   //Canny(src, dst, 10, 70, 3);
 
@@ -136,7 +136,8 @@ int main(int argc, char *argv[]) {
   cvtColor(dst, color_dst, CV_GRAY2BGR );
   //filter out vertical lines by calculating inverse tangent of each line
   vector<Vec4i> lines;
-  HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
+  createTrackbar( "Acc. Threshold:", "Final pic", &lowHLPthresh, max_HLPthresh, on_callback );
+  // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
   for (size_t i = 0; i < lines.size(); i++) {
     //Don't want vertical lines, i.e. where two points(x,y) have equal x's
     if (lines[0]!=lines[2]) {
@@ -162,7 +163,8 @@ int main(int argc, char *argv[]) {
     pointsPlot.push_back(pointAtX(coeffs, allPoints[i].x));
     circle(color_dst, pointsPlot[i], 1, Scalar( 0, 255, 255 ));
   }//for
-  imshow("Final pic", color_dst);
+  /// Show the image
+  on_callback(0, 0);
   waitKey(0);
   if (strcmp(argv[1], "horizon1.jpg")==0) {
     imwrite("Canny 1.jpg", dst);

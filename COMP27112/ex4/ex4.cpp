@@ -14,7 +14,7 @@ int ratio = 3;
 int kernel_size = 3;
 int lowHLPthresh = 20;
 int max_HLPthresh = 100;
-
+vector<Vec4i> lines;
 /**
  * @function on_callback
  * @brief Trackbar callback - Canny thresholds input with a ratio 1:3
@@ -135,7 +135,6 @@ int main(int argc, char *argv[]) {
   /*Step 3: Apply probabilistic Hough transformation*/
   cvtColor(dst, color_dst, CV_GRAY2BGR );
   //filter out vertical lines by calculating inverse tangent of each line
-  vector<Vec4i> lines;
   createTrackbar( "Acc. Threshold:", "Final pic", &lowHLPthresh, max_HLPthresh, on_callback );
   // HoughLinesP(dst, lines, 1, CV_PI/180, 70, 80, 10);
   for (size_t i = 0; i < lines.size(); i++) {

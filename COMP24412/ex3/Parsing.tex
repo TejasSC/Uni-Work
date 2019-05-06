@@ -1,0 +1,46 @@
+\documentclass[12pt]{report}
+\usepackage{graphicx}
+\title{COMP24412 Lab 3 - Grammars, Parsing and Logic}
+\author{Tejas Chandrasekar}
+\begin{document}
+\maketitle
+\newpage
+
+\section{Building a CFG}
+Steel is an alloy. Steel contains carbon.\par
+\noindent POS tags:
+\begin{itemize}
+  \item NNP: Proper noun, singular
+  \begin{itemize}
+    \item steel
+  \end{itemize}
+  \item VBZ: Verb, 3rd person singular present
+  \begin{itemize}
+    \item is
+    \item contains
+  \end{itemize}
+  \item NN: Noun, singular or mass
+  \begin{itemize}
+    \item alloy
+    \item carbon
+  \end{itemize}
+  \item DT: Determiner
+  \begin{itemize}
+    \item an
+  \end{itemize}
+\end{itemize}
+Phrasal nodes: Steel, an alloy (alloy), carbon.
+CFG for the sentence:
+\begin{itemize}
+  \item s $\rightarrow$ np vp
+  \item np $\rightarrow$ n v
+  \item vp $\rightarrow$ det n
+  \item vp $\rightarrow$ n
+  \item det $\rightarrow$ an
+  \item v $\rightarrow$ is
+  \item v $\rightarrow$ contains
+  \item n $\rightarrow$ Steel
+  \item n $\rightarrow$ alloy
+  \item n $\rightarrow$ carbon
+\end{itemize}
+\end{document}

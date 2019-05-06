@@ -33,9 +33,9 @@ Phrasal nodes: Steel, an alloy (alloy), carbon.
 CFG for the sentence:
 \begin{itemize}
   \item s $\rightarrow$ np vp
-  \item np $\rightarrow$ n v
-  \item vp $\rightarrow$ det n
-  \item vp $\rightarrow$ n
+  \item np $\rightarrow$ n
+  \item vp $\rightarrow$ v det n
+  \item vp $\rightarrow$ v n
   \item det $\rightarrow$ an
   \item v $\rightarrow$ is
   \item v $\rightarrow$ contains
@@ -43,4 +43,8 @@ CFG for the sentence:
   \item n $\rightarrow$ alloy
   \item n $\rightarrow$ carbon
 \end{itemize}
+
+\section{Building a CFG in Prolog: using difference lists, and DFGs}
+To enumerate all the words, I ran the prolog query sentence(X,[]).
+See Prolog programs called ex2 and ex3.
 \end{document}

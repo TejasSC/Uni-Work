@@ -19,14 +19,20 @@ unsigned long hcf(unsigned long a, unsigned long b){
 //computes result = (g^x) mod prime, i.e. fast modular exponentiation
 //Note: g < prime
 unsigned long fme(unsigned long g, unsigned long x, unsigned long prime){
-  if (x == 0)
-    return 1;//anything to power 0 is 1
-  if (x%2==0) {
-    result = fme(g, x/2, prime);//power is even, result = g^(x/2) mod prime
-    return (result*result)%prime;
-  }//if
-  result = fme(g, (x-1)/2, prime);//power odd, result = g^((x-1)/2) mod prime
-  return (g*((result*result)%prime))%prime;
+  unsigned long c = 0;
+  unsigned long result = 1;
+  unsigned long size = floor(log(x)/log(2)) + 1;
+  int i;
+  for (i = size-1; i >= 0; i--) {
+    c *= 2;
+    result = (result*result)%prime;//
+    int bitis1 = (x & ( 1 << i )) >> i;//ith bit of x
+    if (bitis1) {
+      c++;
+      result = (result*g)%prime;
+    }//if
+  }//for
+  return result;
 }//fme
 /*
 RUNTIMES as function of sizes g, x, and prime:
